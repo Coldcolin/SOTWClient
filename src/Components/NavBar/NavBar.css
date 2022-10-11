@@ -1,0 +1,35 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: white;
+    height: 60px;
+}
+.menu{
+    display: none;
+}
+.profile{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: #E9E9E9;
+}
+
+@media screen and (max-width: 736px) {
+    .menu {
+      display: block;
+      margin-left: 10px;
+    }
+    .main{
+        justify-content: space-between;
+    }
+}

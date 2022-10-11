@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useStateContext } from './Contexts/ContextProvider';
+import "./App.css"
+import Dashboard from './Dashboard/Dashboard';
+import Registration from './Pages/Registration/Registration';
 
 function App() {
+  // const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/*" element={<Dashboard />}/>
+        <Route path="/Reg" element={<Registration/>} />
+      </Routes>
+    </BrowserRouter>
     </div>
   );
 }

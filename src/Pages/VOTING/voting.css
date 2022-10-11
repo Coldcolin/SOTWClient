@@ -1,0 +1,78 @@
+.voting-main {
+    height: 100vh;
+}
+.voting-title {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 54px;
+    letter-spacing: 0.01em;
+    color: #023047;
+    padding: 15px;
+}
+.voting-cards-holder {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /* background-color: yellow; */
+    /* padding: 15px; */
+}
+.voting-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 213px;
+    height: 271px;
+    border-radius: 8px;
+    background-color: #FFF;
+    margin: 10px;
+}
+.voting-card-image {
+    width: 91px;
+    height: 105px;
+    border-radius: 13px;
+    object-fit: cover;
+}
+.voting-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.voting-card-name {
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #34393C;
+    margin: 3px 0px;
+}
+.voting-card-stack {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    color: #34393C;
+    margin: 3px 0px;
+}
+.voting-card-rating {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    color: #34393C;
+    margin: 3px 0px;
+}
+.voting-card-button {
+    width: 105px;
+    height: 48px;
+    font-weight: 700;
+    background-color: #FFB703;
+    border-radius: 8px;
+    color: white;
+    border: none;
+}
+.voting-card-button span {
+    margin-left: 5px;
+}
