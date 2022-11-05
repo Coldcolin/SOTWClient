@@ -7,6 +7,10 @@ import Voting from '../Pages/VOTING/Voting'
 import UserProfile from '../Pages/UserProfile/UserProfile'
 import Assessment from '../Pages/Assessment/Assessment'
 import "./Dashboard.css"
+import AllUsers from "../Pages/AllUsers/AllUsers";
+import AllStudents from "../Pages/AllStudents/AllStudents";
+import Tutors from "../Pages/Tutors/AllTutors"
+
 
 const Dashboard = () => {
 return (
@@ -24,6 +28,9 @@ return (
             <Route path="voting" element={<Voting/>}/>
             <Route path="user" element={<UserProfile/>}/>
             <Route path="assessment" element={<Assessment/>}/>
+            <Route path="users" element={<AllUsers/>}/>
+            <Route path="students" element={<AllStudents/>}/>
+            <Route path="tutors" element={<Tutors/>}/>
         </Routes>
         </div>
     </div>

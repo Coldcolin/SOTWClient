@@ -3,7 +3,8 @@ import "./StudentOTW.css";
 import {FaGraduationCap} from "react-icons/fa";
 import {FaChalkboardTeacher} from "react-icons/fa"
 import {HiOutlineUserGroup} from "react-icons/hi"
-import SOTW from "../../images/SOTW-SOTW.jpg"
+import SOTW from "../../images/SOTW-SOTW.jpg";
+import {NavLink} from "react-router-dom";
 
 const StudentOTW = () => {
   return (
@@ -11,7 +12,7 @@ const StudentOTW = () => {
       <main className="sotw-container">
       <h2>Dashboard</h2>
         <section className="sotw-top">
-          <div className="sotw-navs">
+          <NavLink to="/users" className="sotw-navs">
             <div className="sotw-boxes">
               <div className="sotw-circle-1"><HiOutlineUserGroup/></div>
               <div className="sotw-info">
@@ -19,8 +20,8 @@ const StudentOTW = () => {
                 <span>All Users</span>
               </div>
             </div>
-          </div>
-          <div className="sotw-navs">
+          </NavLink>
+          <NavLink to="students" className="sotw-navs">
             <div className="sotw-boxes">
               <div className="sotw-circle-2"><FaGraduationCap/></div>
               <div className="sotw-info">
@@ -28,8 +29,8 @@ const StudentOTW = () => {
                 <span>Students</span>
               </div>
             </div>
-          </div>
-          <div className="sotw-navs">
+          </NavLink>
+          <NavLink to="tutors" className="sotw-navs">
             <div className="sotw-boxes">
               <div className="sotw-circle-3"><FaChalkboardTeacher/></div>
               <div className="sotw-info">
@@ -37,7 +38,7 @@ const StudentOTW = () => {
                 <span>Instructors</span>
               </div>
             </div>
-          </div>
+          </NavLink>
         </section>
         <section className="sotw-middle">
           <div className="sotw-sotw">
@@ -48,7 +49,15 @@ const StudentOTW = () => {
             <p className="sotw-image-info-p">Frontend Developer</p>
             </div>
           </div>
-          <div className="sotw-history">
+          <div className="sotw-sotw">
+            <img className="sotw-image" src={SOTW} alt="img"/>
+            <div className= "sotw-image-info">
+            <p className="sotw-image-info-h4">STUDENT OF THE WEEK</p>
+            <p className="sotw-image-info-h3">MARY OBINECHE</p>
+            <p className="sotw-image-info-p">Backend Developer</p>
+            </div>
+          </div>
+          {/* <div className="sotw-history">
             <p>Student of the week History</p>
             <table style={{width: "100%"}}>
               <tr>
@@ -138,7 +147,7 @@ const StudentOTW = () => {
             </table>
             
 
-          </div>
+          </div> */}
         </section>
         <section></section>
       </main>

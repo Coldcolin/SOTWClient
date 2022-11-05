@@ -1,0 +1,24 @@
+.all-body{
+    min-height: 100vh;
+}
+.all-head{
+    background-color: white;
+    display: flex;
+}
+.all-filter{
+
+}
+.all-search{
+
+}
+.all-title-head{
+    display: flex;
+    justify-content: space-around;
+}
+.all-title{
+
+}
+.all-user-info{
+    display: flex;
+    justify-content: space-around;
+}

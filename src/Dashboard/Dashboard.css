@@ -6,7 +6,8 @@
 .sidebar{
     display: flex;
     width: 20%;
-    /* background-color: aqua; */
+    z-index: 1;
+    background-color: white;
 }
 
 .dashboard {

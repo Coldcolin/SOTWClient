@@ -3,11 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from './Contexts/AuthProvider';
+import { Provider } from 'react-redux';
+import { store, Persistor } from './Contexts/store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+  <Provider store={store}>
+  <AuthProvider>
+  <PersistGate loading={null} persistor={Persistor}>
+  <App />
+  </PersistGate>
+  </AuthProvider>
+  </Provider>
   </React.StrictMode>
 );
 

@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import "./voting.css"
-import Image from "../../images/images 3.jpg"
 import {MdOutlineHowToVote} from "react-icons/md";
 import axios from "axios"
 

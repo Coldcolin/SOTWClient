@@ -11,7 +11,7 @@
 }
 .sotw-top{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 h2 {
@@ -22,14 +22,16 @@ h2 {
     margin:10px 60px;
 }
 .sotw-navs {
+    text-decoration: none;
     display: flex;
     background-color: white;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    margin: 5px;
+    margin: 5px 15px;
     width: 250px;
     height: 96px;
+    cursor: pointer;
 }
 .sotw-boxes{
     display: flex;
@@ -189,7 +191,7 @@ th {
 }
 
 tr:nth-child(even) {
-    background-color: rgba(247, 249, 252, 0.8);
+    /* background-color: rgba(247, 249, 252, 0.8); */
 }
 td{
     font-size: 14px;
@@ -198,12 +200,24 @@ td{
     color: #34393C;
     text-align: center;
     padding: 8px;
-    border-bottom: 1px solid #34393C;
+    border-bottom: 1px solid rgba(247, 249, 252, 0.8);
 }
 
 @media screen and (max-width: 600px){
     .sotw-sotw{
         width: 100%;
         margin: 10px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .sotw-history {
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width:1024px){
+    .sotw-history {
+        margin-top: 50px;
     }
 }
