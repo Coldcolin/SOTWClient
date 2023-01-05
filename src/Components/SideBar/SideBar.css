@@ -78,7 +78,7 @@
     line-height: 20px;
     font-weight: 500;
     color: #838191;
-    transition: all 350ms ease;
+    transition: all 0.75s ease;
     /* background-color: yellow; */
 }
 
@@ -88,9 +88,6 @@
 }
 
 .navigation:hover{
-    /* border: 1px solid rgba(1, 0, 0, 0.3);
-    border-radius: 3px; */
-    transition:all 350ms ease; 
     color: #FFB703;
 }
 .nav-active {

@@ -1,11 +1,35 @@
-import React from 'react';
-import Image from "../../images/SOTW-SOTW.jpg"
+import React, { useEffect, useState } from 'react';
+// import Image from "../../images/SOTW-SOTW.jpg"
 import "./UserProfile.css";
-import {useSelector, useDispatch} from "react-redux";
-import { AuthContext } from "../../Contexts/AuthProvider";
+import {useSelector} from "react-redux";
+// import { AuthContext } from "../../Contexts/AuthProvider";
+import axios from "axios";
 
 const UserProfile = () => {
   const profile = useSelector((state) => state.Id.Id);
+  const [ratings, setRatings] = useState();
+  const getRatings =async()=>{
+    try{
+      const res = await axios.get(`https://sotw-app.onrender.com/rating/get/${profile._id}`)
+      console.log(res.data.data)
+      const rating = res.data.data;
+      setRatings(rating);
+    }catch(error){
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
+  }
+  useEffect(()=>{
+    getRatings()
+  }, [])
   return (
     <main className="user-main">
     <div className="text">User Profile</div>
@@ -21,203 +45,35 @@ const UserProfile = () => {
           </div>
         </div>
       </article>
-      <article className='user-assessment'>
+      {
+        profile.stack === "Tutor"? null:<article className='user-assessment'>
         <p>Your Assessment History</p>
         <table style={{width: "100%"}}>
           <tr className="user-table-head">
-            <th>#</th>
+            <th>WEEK </th>
             <th>PUNCTUALITY</th>
             <th>ASSIGNMENTS</th>
-            <th>ACTIVE PARTICIPATION</th>
+            <th>CLASS PARTICIPATION</th>
+            <th>CLASS ASSESSMENT</th>
             <th>PERSONAL DEFENCE</th>
             <th>AV. TOTAL 100%</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
+          {
+            ratings?.map((props)=>(
+              <tr>
+            <td>{props.week}</td>
+            <td>{props.punctuality}</td>
+            <td>{props.Assignments}</td>
+            <td>{props.classParticipation}</td>
+            <td>{props.classAssessment}</td>
+            <td>{props.personalDefense}</td>
+            <td>{props.total}</td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>11</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>12</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>14</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>15</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>16</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>17</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>18</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>19</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>20</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>21</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>22</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>23</td>
-            <td>49%</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>24</td>
-            <td>49%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-            <td>20%</td>
-          </tr>
+            ))
+          }
         </table>
       </article>
+      }
       </div>
     </main>
   )

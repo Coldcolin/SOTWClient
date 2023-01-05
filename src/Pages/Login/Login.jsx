@@ -1,18 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import image from "../../images/logo.jpeg"
 import sideImage from "../../images/forLogin.jpg"
-import axios from "axios"
+// import axios from "axios"
+import axios from "../../api/axios"
 import "./Login.css"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 import { addId } from "../../Contexts/IdReducer";
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
+import useAuth from "../../Hooks/useAuth.js"
+const LOGIN_URL = "/users/login"
 
 const Login = () => {
+  const {setSaveUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const dispatch = useDispatch();
 
   const schemaModel = yup.object().shape({
@@ -36,19 +42,21 @@ const Login = () => {
   const logIn = handleSubmit( async (data) =>{
     try{
       const {email, password}= data;
-      const res = await axios.post("http://localhost:4400/users/login", { email, password});
+      const res = await axios.post(LOGIN_URL, { email, password});
 
-      console.log(res.data.data);
+      // console.log(res.data.data);
       // console.log(email, password)
 
-      localStorage.setItem("SOTWUser", JSON.stringify(res.data.data));
-      dispatch(addId(res.data.data))
+      localStorage.setItem("SOTWUser", JSON.stringify({name: res.data.data.name, stack: res.data.data.stack}));
+      dispatch(addId(res.data.data));
+      // console.log(res.data.data.name, res.data.data.stack);
+      setSaveUser({name: res.data.data.name, stack: res.data.data.stack});
       reset();
       Toast.fire({
         icon: 'success',
         title: 'You are now Logged in'
       })
-      navigate("/user")
+      navigate(from, {replace: true})
     }catch(error){
       if(error.response){
         Toast.fire({

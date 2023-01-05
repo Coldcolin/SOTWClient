@@ -51,7 +51,30 @@
     background-color: #FFB703;
     color: white;
     border-radius: 3px; 
+    border: none;
+    cursor: pointer;
+    font-weight: 300;
+    transform: scale(1);
+    transition: all 450ms;
+}
 
+.assessment-submit:hover{
+    background-color: #023047;
+    transform: scale(1.05);
+    padding-block: 3px;
+    transition: all 350ms;
+    font-weight: 600;
+}
+
+.SOTWFE {
+    min-width: 120px;
+    background-color: #ecaa03;
+    font-size: 12px;
+}
+.SOTWBE {
+    min-width: 120px;
+    background-color: #c28d07;
+    font-size: 12px;
 }
 @media screen and (max-width: 600px){
     .assessment-submit {

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useStateContext } from './Contexts/ContextProvider';
+// import { useStateContext } from './Contexts/ContextProvider';
 import "./App.css"
 import Dashboard from './Dashboard/Dashboard';
 import Registration from './Pages/Registration/Registration';
-import Login from "./Pages/Login/Login.jsx"
+import Login from "./Pages/Login/Login.jsx";
+
 
 function App() {
   // const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();

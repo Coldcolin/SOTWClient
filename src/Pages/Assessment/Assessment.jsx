@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import "./Assessment.css";
 import axios from "axios";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 
 const Assessment = () => {
   const [users, setUsers] = useState([]);
+  const [punctuality, setPunctuality] = useState(0);
+  const [Assignments, setAssignments] = useState(0);
+  const [personalDefense, setPersonalDefense] = useState(0);
+  const [classParticipation, setClassParticipation] = useState(0);
+  const [classAssessment, setClassAssessment] = useState(0);
+  const [week, setWeek] = useState(0);
 
-  const schemaModel = yup.object().shape({
-    punctuality: yup.number().required("Please add your punctuality"),
-    Assignments: yup.number().required("Please add your Assignments"),
-    personalDefense: yup.number().required("Please input your personalDefense"),
-    classParticipation: yup.number().required("Please input your classParticipation"),
-    classAssessment: yup.number().required("Please input your classAssessment"),
-    week: yup.number().required("Please input your week"),
-  });
-
-  const {register, reset, handleSubmit, watch, formState: {errors}} = useForm({ resolver: yupResolver( schemaModel)});
 
   const Toast = Swal.mixin({
     toast: true,
@@ -31,21 +24,11 @@ const Assessment = () => {
     }
   })
 
-  const addAssessment = handleSubmit( async (data, id) =>{
+ 
+  const addAssessment = async (id) =>{
     try{
-      const {Assignments, personalDefense, classParticipation, punctuality, classAssessment, week}= data;
-
-      // const formData = new FormData();
-      // formData.append("punctuality", punctuality);
-      // formData.append("Assignments", Assignments);
-      // formData.append("personalDefense", personalDefense);
-      // formData.append("classParticipation", classParticipation);
-      // formData.append("classAssessment", classAssessment);
-      // formData.append("week", week);
-      
-      // await axios.post(`http://localhost:4400/rating/add/${id}`,data, config);
-      console.log( Assignments, personalDefense, classParticipation, punctuality, classAssessment, week, id);
-      reset();
+      await axios.post(`https://sotw-app.onrender.com/rating/add/${id}`,{Assignments: Assignments, personalDefense: personalDefense, classParticipation: classParticipation, punctuality: punctuality, classAssessment: classAssessment, week: week});
+      setPunctuality(0); setAssignments(0); setPersonalDefense(0); setClassParticipation(0); setClassAssessment(0);
       Toast.fire({
         icon: 'success',
         title: 'Assessment Added'
@@ -53,7 +36,7 @@ const Assessment = () => {
     }catch(error){
       if(error.response){
         Toast.fire({
-          icon:'fail',
+          icon:'error',
           title: error.response.data.message
         })
         console.log(error.response.status);
@@ -64,27 +47,65 @@ const Assessment = () => {
         console.log("Error", error.message)
       }
     }
-  })
+  }
 
-  const getUsers =async()=>{
+  const addSOTWFE = async (id)=>{
     try{
-      const res = await axios.get("http://localhost:4400/users/allusers")
-      // console.log(res.data.data)
-      setUsers(res.data.data)
+      await axios.post(`https://sotw-app.onrender.com/SOW/create/${id}`,{week: week});
+      Toast.fire({
+        icon: 'success',
+        title: 'Student Added'
+      })
     }catch(error){
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
       } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
+
+  }
+  const addSOTWBE = async (id)=>{
+    try{
+      await axios.post(`https://sotw-app.onrender.com/BSOW/create/${id}`,{week: week});
+      Toast.fire({
+        icon: 'success',
+        title: 'Student Added'
+      })
+    }catch(error){
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
+
+  }
+
+  const getUsers =async()=>{
+    try{
+      const res = await axios.get("https://sotw-app.onrender.com/users/allusers")
+      const users = res.data.data;
+      const filteredUsers = users.filter((e)=> e.stack !== "Tutor");
+      setUsers(filteredUsers)
+    }catch(error){
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
         console.log('Error', error.message);
       }
       console.log(error.config);
@@ -101,6 +122,7 @@ const Assessment = () => {
         <div className="assessment-search">Search</div> */}
       </div>
       <div className="a-table">
+      {/* <form > */}
       <table className="assessment-table-holder">
           <tr className="assessment-table">
             <th className="assessment-table-title">IMAGE</th>
@@ -112,23 +134,27 @@ const Assessment = () => {
             <th className="assessment-table-title">PERSONAL DEFENSE</th>
             <th className="assessment-table-title"> WEEK</th>
             <th className="assessment-table-title"></th>
+            <th className="assessment-table-title"></th>
           </tr>
-          {
-            users.map((props)=>(
+            {/* <form> */}
+            {users.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
                 <td><img src={props.image} alt="imae" className="assessment-image"/></td>
                 <td><div className="assessment-item">{props.name}</div></td>
-                <td><input type="number" className="assessment-input" placeholder="punctuality" {...register("punctuality")}/></td>
-                <td><input type="number" className="assessment-input" placeholder="assignment" {...register("Assignment")}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Assessment" {...register("classAssessment")}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Participation" {...register("classParticipation")}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Personal Defense" {...register("personalDefense")}/></td>
-                <td><input type="number" className="assessment-input" placeholder="week" {...register("week")}/></td>
-                <td><div className="assessment-submit" onClick={()=> addAssessment(props._id)}>Submit</div></td>
+                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={e => setPunctuality(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={e => setAssignments(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={e => setClassAssessment(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={e => setClassParticipation(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={e => setPersonalDefense(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
+                <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
+                {
+                  props.stack === "Back End"? <td><button className="assessment-submit SOTWFE" type="submit" onClick={(e)=> addSOTWBE(props._id)}>make SOTW BE</button></td>: <td><button className="assessment-submit SOTWBE" type="submit" onClick={(e)=> addSOTWFE(props._id)}>make SOTW FE</button></td>
+                }
               </tr>
-            ))
-          }
+            ))}
         </table>
+      {/* </form> */}
         </div>
     </div>
   )

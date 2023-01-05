@@ -9,10 +9,13 @@ import Assessment from '../Pages/Assessment/Assessment'
 import "./Dashboard.css"
 import AllUsers from "../Pages/AllUsers/AllUsers";
 import AllStudents from "../Pages/AllStudents/AllStudents";
-import Tutors from "../Pages/Tutors/AllTutors"
+import Tutors from "../Pages/Tutors/AllTutors";
+import RequireAuth from '../Components/RequireAuth';
+import TutorAuth from "../Components/TutorAuth.js"
 
 
 const Dashboard = () => {
+    
 return (
     <div className="body">
     <div className="sidebar">
@@ -25,9 +28,14 @@ return (
         <div className="main-content">
         <Routes>
             <Route path="/" element={<StudentOTW/>}/>
-            <Route path="voting" element={<Voting/>}/>
-            <Route path="user" element={<UserProfile/>}/>
-            <Route path="assessment" element={<Assessment/>}/>
+            <Route element={<TutorAuth />}>
+                <Route path="assessment" element={<Assessment/>}/>
+            </Route>
+            <Route element={<RequireAuth />} >
+                <Route path="voting" element={<Voting/>}/>
+                <Route path="user" element={<UserProfile/>}/>
+            </Route>
+            
             <Route path="users" element={<AllUsers/>}/>
             <Route path="students" element={<AllStudents/>}/>
             <Route path="tutors" element={<Tutors/>}/>

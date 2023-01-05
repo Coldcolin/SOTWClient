@@ -3,14 +3,15 @@ import "./Registration.css"
 import image from "../../images/logo.jpeg"
 import avatars from "../../images/avatar.jpg"
 import sideImage from "../../images/forLogin.jpg"
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
+import axios from "../../api/axios"
 
-
+const REGISTER_URL = "/users/create"
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const Registration = () => {
           "content-type": "multipart/formData"
         }
       }
-      await axios.post("http://localhost:4400/users/create",formData, config);
+      await axios.post(REGISTER_URL,formData, config);
       reset();
       Toast.fire({
         icon: 'success',
@@ -68,7 +69,7 @@ const Registration = () => {
     }catch(error){
       if(error.response){
         Toast.fire({
-          icon:'fail',
+          icon:'error',
           title: error.response.data.message
         })
         console.log(error.response.status);
@@ -104,7 +105,13 @@ const Registration = () => {
           {/* <input className="reg-input" placeholder="Phone Number" /> */}
           <input className="reg-input" placeholder="email" {...register("email")}/>
           <label>{errors.email && <p>Please enter the email.</p>}</label>
-          <input className="reg-input" placeholder="Stack/Role" {...register("stack")}/>
+          {/* <input className="reg-input" placeholder="Stack/Role" {...register("stack")}/> */}
+          <select className="reg-input" {...register("stack")}>
+              <option>-- Select Stack/Role --</option>
+              <option>Front End</option>
+              <option>Back End</option>
+              <option>Tutor</option>
+            </select>
           <label>{errors.stack && <p>Please enter the Role.</p>}</label>
           <input className="reg-input" placeholder="Password" type="password" {...register("password")} />
           <label>{errors.password  && <p>Please enter the Password.</p>}</label>

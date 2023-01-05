@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import "./SideBar.css"
 // import { useStateContext } from '../../Contexts/ContextProvider.js';
 import image from "../../images/avatar.jpg"
@@ -7,17 +7,17 @@ import logo from "../../images/logo.jpeg"
 import { TbLayoutDashboard } from "react-icons/tb";
 import { FiUser } from "react-icons/fi"
 import {MdOutlineAssessment} from "react-icons/md"
-import {MdOutlineHowToVote} from "react-icons/md";
+// import {MdOutlineHowToVote} from "react-icons/md";
 import {MdOutlineLogout} from "react-icons/md";
 import {useSelector, useDispatch} from "react-redux";
-import { AuthContext } from "../../Contexts/AuthProvider";
+// import useAuth from "../../Hooks/useAuth.js";
 import { signOut } from "../../Contexts/IdReducer";
 import Swal from 'sweetalert2';
 
 
 
 const Sidebar = () => {
-  const { saveUser } = useContext(AuthContext);
+  // const { setSaveUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const profile = useSelector((state) => state.Id.Id);
@@ -67,11 +67,12 @@ const Sidebar = () => {
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/"><TbLayoutDashboard/> <span>Dashboard</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="user"> <FiUser/> <span>User Profile</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>
-        <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink>
+        {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
       </div>
       <div className="Log-out"
       onClick={() => {
 								dispatch(signOut());
+                localStorage.setItem("SOTWUser", JSON.stringify({}))
                                 Toast.fire({
                                     icon: 'success',
                                     title: 'Logged out successfully'
