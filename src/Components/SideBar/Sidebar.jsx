@@ -2,11 +2,12 @@ import React from 'react';
 import "./SideBar.css"
 // import { useStateContext } from '../../Contexts/ContextProvider.js';
 import image from "../../images/avatar.jpg"
-import {useNavigate, NavLink } from "react-router-dom"
+import {useNavigate, NavLink, Link } from "react-router-dom"
 import logo from "../../images/logo.jpeg"
 import { TbLayoutDashboard } from "react-icons/tb";
 import { FiUser } from "react-icons/fi"
 import {MdOutlineAssessment} from "react-icons/md"
+import {FiLogIn} from "react-icons/fi"
 // import {MdOutlineHowToVote} from "react-icons/md";
 import {MdOutlineLogout} from "react-icons/md";
 import {useSelector, useDispatch} from "react-redux";
@@ -70,7 +71,7 @@ const Sidebar = () => {
         {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
       </div>
       {
-        profile.name ? <div className="Log-out" onClick={() => {
+        profile ? <div className="Log-out" onClick={() => {
 								dispatch(signOut());
                 localStorage.setItem("SOTWUser", JSON.stringify({}))
                 Toast.fire({
@@ -79,7 +80,7 @@ const Sidebar = () => {
                 })
                 navigate("/login")
 							}}
-      ><MdOutlineLogout/> Logout</div>: <div className="Log-out">Log in<MdOutlineLogout/> Logout</div>
+      ><MdOutlineLogout/> Logout</div>: <Link to="/Login" className="Log-in"><FiLogIn/> Login</Link>
       }
     </div>
   )
