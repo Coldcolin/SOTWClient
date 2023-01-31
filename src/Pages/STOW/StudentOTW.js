@@ -3,8 +3,9 @@ import "./StudentOTW.css";
 import {FaGraduationCap} from "react-icons/fa";
 import {FaChalkboardTeacher} from "react-icons/fa"
 import {HiOutlineUserGroup} from "react-icons/hi"
-// import SOTW from "../../images/SOTW-SOTW.jpg";
+import giffy from "../../images/a2dc9668f2cf170fe3efeb263128b0-unscreen.gif";
 import {NavLink} from "react-router-dom";
+import Loader from "./Loader.jsx"
 import axios from "../../api/axios";
 const SOTWFE_URL = "/SOW/student"
 const ALLSOTWFE_URL = "/SOW/all"
@@ -12,16 +13,18 @@ const SOTWBE_URL = "/BSOW/student"
 const ALLSOTWBE_URL = "/BSOW/all"
 const ALL_USERS = "/users/allusers"
 
+
 const StudentOTW = () => {
   const [SOTWFE, setSOTWFE] = useState([]);
   const [allSOTWFE, setAllSOTWFE] = useState([]);
     const [SOTWBE, setSOTWBE] = useState([]);
     const [allSOTWBE, setAllSOTWBE] = useState([]);
     const [allUsers, setAllUsers] = useState([])
-    // const [students, setStudents] = useState([])
+    const [loading, setLoading] = useState(false)
 
 const getUsers =async()=>{
     try{
+      setLoading(true)
     // const res = await axios.get("http://localhost:4400/users/allusers")
     const res = await axios.get(SOTWFE_URL)
     const rest = await axios.get(SOTWBE_URL);
@@ -34,6 +37,7 @@ const getUsers =async()=>{
     setSOTWBE(rest.data.data.student);
     setAllSOTWFE(allFest.data.data);
     setAllSOTWBE(allBest.data.data);
+    setLoading(false)
     // console.log(allBest.data.data);
     // console.log(allFest.data.data);
 }catch(error){
@@ -65,35 +69,36 @@ const getUsers =async()=>{
       <h2>Dashboard</h2>
         <section className="sotw-top">
           <NavLink to="/users" className="sotw-navs">
-            <div className="sotw-boxes">
+            {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div> :<div className="sotw-boxes">
               <div className="sotw-circle-1"><HiOutlineUserGroup/></div>
               <div className="sotw-info">
                 <div>{allUsers.length}</div>
                 <span>All Users</span>
               </div>
-            </div>
+            </div>}
           </NavLink>
           <NavLink to="students" className="sotw-navs">
-            <div className="sotw-boxes">
+            {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
               <div className="sotw-circle-2"><FaGraduationCap/></div>
               <div className="sotw-info">
                 <div>{memoizedVal.length}</div>
                 <span>Students</span>
               </div>
-            </div>
+            </div>}
           </NavLink>
           <NavLink to="tutors" className="sotw-navs">
-            <div className="sotw-boxes">
+            {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
               <div className="sotw-circle-3"><FaChalkboardTeacher/></div>
               <div className="sotw-info">
                 <div>{allUsers.length - memoizedVal.length}</div>
                 <span>Instructors</span>
               </div>
-            </div>
+            </div>}
           </NavLink>
         </section>
         <section className="sotw-middle">
-              <div className="sotw-sotw">
+              {
+                loading? <div className="sotw-sotw"><Loader/></div>: <div className="sotw-sotw">
                 <img className="sotw-image" src={SOTWFE.image} alt="img"/>
                 <div className= "sotw-image-info">
                 <p className="sotw-image-info-h4">STUDENT OF THE WEEK</p>
@@ -101,9 +106,10 @@ const getUsers =async()=>{
                 <p className="sotw-image-info-p">Frontend Developer</p>
                 </div>
               </div>
+              }
           
-          
-              <div className="sotw-sotw">
+              {
+                loading? <div className="sotw-sotw"><Loader/></div> : <div className="sotw-sotw">
                 <img className="sotw-image" src={SOTWBE.image} alt="img"/>
                 <div className= "sotw-image-info">
                 <p className="sotw-image-info-h4">STUDENT OF THE WEEK</p>
@@ -111,15 +117,19 @@ const getUsers =async()=>{
                 <p className="sotw-image-info-p">Backend Developer</p>
                 </div>
               </div>
+              }
           <div className="sotw-history">
             <p>Student of the week History Front-End</p>
             <table style={{width: "100%"}}>
+              <thead>
               <tr>
                 <th>WEEK</th>
                 <th>NAME</th>
                 <th>AVERAGE RATING</th>
                 <th>CURRENT RATING</th>
               </tr>
+              </thead>
+              <tbody>
               {
                 allSOTWFE?.map((props)=>(
                   <tr key={props._id}>
@@ -130,6 +140,7 @@ const getUsers =async()=>{
                   </tr>
                 ))
               }
+              </tbody>
             </table>
           </div>
           <div className="sotw-history">

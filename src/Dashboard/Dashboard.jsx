@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Navbar from '../Components/NavBar/Navbar'
 import Sidebar from '../Components/SideBar/Sidebar'
+import Side from '../Components/SideBar/Side'
 import StudentOTW from '../Pages/STOW/StudentOTW'
 import Voting from '../Pages/VOTING/Voting'
 import UserProfile from '../Pages/UserProfile/UserProfile'
@@ -12,9 +13,12 @@ import AllStudents from "../Pages/AllStudents/AllStudents";
 import Tutors from "../Pages/Tutors/AllTutors";
 import RequireAuth from '../Components/RequireAuth';
 import TutorAuth from "../Components/TutorAuth.js"
+import Detail from '../Pages/UserProfile/Detail'
+import {AuthContext} from "../Contexts/AuthProvider"
 
 
 const Dashboard = () => {
+    const { showSide, toggleSide} = useContext(AuthContext)
     
 return (
     <div className="body">
@@ -24,6 +28,7 @@ return (
     <div className="dashboard">
         <div className="navbar">
         <Navbar/>
+        {showSide ? <Side toggle={toggleSide}/>: null }
         </div>
         <div className="main-content">
         <Routes>
@@ -39,6 +44,7 @@ return (
             <Route path="users" element={<AllUsers/>}/>
             <Route path="students" element={<AllStudents/>}/>
             <Route path="tutors" element={<Tutors/>}/>
+            <Route path="detail/:id" element={<Detail/>}/>
         </Routes>
         </div>
     </div>

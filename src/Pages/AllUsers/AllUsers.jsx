@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./AllUsers.css";
 import axios from "../../api/axios";
+import { Link } from 'react-router-dom';
 
 const ALL_USERS = "/users/allusers"
 
@@ -49,7 +50,7 @@ const AllUsers = () => {
             {/* <form> */}
             {users.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
-                <td><img src={props.image} alt="imae" className="assessment-image"/></td>
+                <td><Link to={`/detail/${props._id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div className="assessment-item">{props.name}</div></td>
                 <td>{props.stack}</td>
                 <td>{props.email}</td>

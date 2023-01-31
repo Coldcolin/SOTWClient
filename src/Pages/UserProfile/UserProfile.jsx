@@ -11,7 +11,6 @@ const UserProfile = () => {
   const getRatings =async()=>{
     try{
       const res = await axios.get(`https://sotw-app.onrender.com/rating/get/${profile._id}`)
-      console.log(res.data.data)
       const rating = res.data.data;
       setRatings(rating);
     }catch(error){

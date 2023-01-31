@@ -11,6 +11,7 @@ const Assessment = () => {
   const [classParticipation, setClassParticipation] = useState(0);
   const [classAssessment, setClassAssessment] = useState(0);
   const [week, setWeek] = useState(0);
+  const [show, setShow] = useState(false)
 
 
   const Toast = Swal.mixin({
@@ -134,7 +135,9 @@ const Assessment = () => {
             <th className="assessment-table-title">PERSONAL DEFENSE</th>
             <th className="assessment-table-title"> WEEK</th>
             <th className="assessment-table-title"></th>
-            <th className="assessment-table-title"></th>
+            <th className="assessment-table-title">{
+              !show ? <button className="assessment-submit SOTWBE" type="submit" onClick={()=> setShow(!show)}>Choose SOTW</button>: <button className="assessment-submit SOTWBE" type="submit" onClick={()=> setShow(!show)}>hide Buttons</button>
+            }</th>
           </tr>
             {/* <form> */}
             {users.map((props)=>(
@@ -149,7 +152,7 @@ const Assessment = () => {
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
                 <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
                 {
-                  props.stack === "Back End"? <td><button className="assessment-submit SOTWFE" type="submit" onClick={(e)=> addSOTWBE(props._id)}>make SOTW BE</button></td>: <td><button className="assessment-submit SOTWBE" type="submit" onClick={(e)=> addSOTWFE(props._id)}>make SOTW FE</button></td>
+                  !show ? <td></td>:props.stack === "Back End"? <td><button className="assessment-submit SOTWFE" type="submit" onClick={(e)=> addSOTWBE(props._id)}>make SOTW BE</button></td>: <td><button className="assessment-submit SOTWBE" type="submit" onClick={(e)=> addSOTWFE(props._id)}>make SOTW FE</button></td>
                 }
               </tr>
             ))}

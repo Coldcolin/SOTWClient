@@ -120,7 +120,7 @@ h2 {
 .sotw-image{
     width: inherit;
     height: inherit;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: inherit;
 }
 .sotw-image-info{

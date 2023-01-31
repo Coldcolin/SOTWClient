@@ -4,7 +4,7 @@ import sideImage from "../../images/forLogin.jpg"
 // import axios from "axios"
 import axios from "../../api/axios"
 import "./Login.css"
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -92,6 +92,7 @@ const Login = () => {
             Login
           </div>
           <input className="login-input" placeholder="Email" {...register("email")}/>
+          {/* <p>{errors && "some error"}</p> */}
           <input className="login-input" placeholder="Password" type="password" {...register("password")} />
           <button className="login-signup-button" type="submit">Log In</button>
         </form>

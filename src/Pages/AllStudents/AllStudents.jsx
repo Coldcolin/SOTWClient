@@ -1,32 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import axios from "../../api/axios"
+import {AuthContext} from '../../Contexts/AuthProvider';
 
 const allStuds = "/users/allusers"
 
 const AllStudents = () => {
+  const {saveUser} = useContext(AuthContext)
+  
   const [users, setUsers] = useState([])
   const getUsers =async()=>{
     try{
       const res = await axios.get(allStuds)
-      // console.log(res.data.data)
       const users = res.data.data;
       const filteredUsers = users.filter((e)=> e.stack !== "Tutor");
-      // console.log(filteredUsers);
       setUsers(filteredUsers)
     }catch(error){
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
       } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
+  }
+  const deleteUser =async(id)=>{
+    try{
+      const res = await axios.delete(`/users/remove/${id}`)
+      console.log(res)
+      getUsers();
+    }catch(error){
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
         console.log('Error', error.message);
       }
       console.log(error.config);
@@ -43,22 +57,27 @@ const AllStudents = () => {
       </div>
       <div className="all-user-info">
       <table className="assessment-table-holder">
+          <thead>
           <tr className="assessment-table">
             <th className="assessment-table-title"></th>
             <th className="assessment-table-title">NAME</th>
             <th className="assessment-table-title">STACK</th>
-            <th className="assessment-table-title">EMAIL</th>
-            {/* <th className="assessment-table-title">CLASS ASSESSMENT</th> */}
+            <th className="assessment-table-title">OVERALL SCORE</th>
+            <th className="assessment-table-title">{" "}</th>
           </tr>
-            {/* <form> */}
+          </thead>
+            <tbody>
+              {/* <form> */}
             {users.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
-                <td><img src={props.image} alt="imae" className="assessment-image"/></td>
+                <td><Link to={`/detail/${props._id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div className="assessment-item">{props.name}</div></td>
                 <td>{props.stack}</td>
-                <td>{props.email}</td>
+                <td>{props.overallRating}</td>
+                {saveUser.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
               </tr>
             ))}
+            </tbody>
         </table>
       </div>
       </div>

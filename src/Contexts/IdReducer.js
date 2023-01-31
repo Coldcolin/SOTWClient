@@ -11,12 +11,6 @@ const IdReducer = createSlice({
         addId: (state, {payload}) =>{
             state.Id = payload
         },
-        // removeId: (state, {payload})=>{
-        // state.Id = ""
-        // },
-        // changeId: (state, {payload})=>{
-        // state.Id.isAdmin = true
-        // },
         signOut: (state) => {
                 state.Id = "";
             },
