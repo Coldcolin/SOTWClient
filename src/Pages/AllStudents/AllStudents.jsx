@@ -13,7 +13,7 @@ const AllStudents = () => {
     try{
       const res = await axios.get(allStuds)
       const users = res.data.data;
-      const filteredUsers = users.filter((e)=> e.stack !== "Tutor");
+      const filteredUsers = await users.filter((e)=> e.stack !== "Tutor");
       setUsers(filteredUsers)
     }catch(error){
       if (error.response) {
@@ -68,13 +68,13 @@ const AllStudents = () => {
           </thead>
             <tbody>
               {/* <form> */}
-            {users.map((props)=>(
-              <tr className="assessment-user-info" key={props._id}>
-                <td><Link to={`/detail/${props._id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div className="assessment-item">{props.name}</div></td>
-                <td>{props.stack}</td>
-                <td>{props.overallRating}</td>
-                {saveUser.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
+            {users?.map((props)=>(
+              <tr className="assessment-user-info" key={props?._id}>
+                <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><div className="assessment-item">{props?.name}</div></td>
+                <td>{props?.stack}</td>
+                <td>{props?.overallRating}</td>
+                {saveUser?.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
               </tr>
             ))}
             </tbody>
