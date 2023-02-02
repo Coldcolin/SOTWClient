@@ -38,6 +38,14 @@
     margin: 0 20px;
     object-fit: cover;
 }
+.profile-1{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: black;
+    margin: 0 20px;
+    object-fit: cover;
+}
 .who1 {
     display: flex;
     flex-direction: column;

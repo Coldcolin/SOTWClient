@@ -3,7 +3,7 @@ import "./StudentOTW.css";
 import {FaGraduationCap} from "react-icons/fa";
 import {FaChalkboardTeacher} from "react-icons/fa"
 import {HiOutlineUserGroup} from "react-icons/hi"
-import giffy from "../../images/a2dc9668f2cf170fe3efeb263128b0-unscreen.gif";
+import giffy from "../../images/loader.gif";
 import {NavLink} from "react-router-dom";
 import Loader from "./Loader.jsx"
 import axios from "../../api/axios";

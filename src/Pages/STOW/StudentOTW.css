@@ -45,6 +45,11 @@ h2 {
     justify-content: space-around;
     align-items: center;
 }
+.sotw-boxes img{
+    width: 250px;
+    height: 96px;
+    object-fit: cover;
+}
 .sotw-circle-1{
     font-size: 30px;
     display: flex;

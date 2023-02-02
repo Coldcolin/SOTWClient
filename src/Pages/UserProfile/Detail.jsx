@@ -85,14 +85,14 @@ const Detail = () => {
           <tbody>
           {
             ratings?.map((props)=>(
-              <tr>
+              <tr key={props._id}>
             <td>{props.week}</td>
             <td>{props.punctuality}</td>
             <td>{props.Assignments}</td>
             <td>{props.classParticipation}</td>
             <td>{props.classAssessment}</td>
             <td>{props.personalDefense}</td>
-            <td>{props.total}</td>
+            <td>{(Math.round(props.total * 10))/10}</td>
           </tr>
             ))
           }

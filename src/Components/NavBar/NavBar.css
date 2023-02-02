@@ -31,5 +31,6 @@
     }
     .main{
         justify-content: space-between;
+        max-width: 100vw;
     }
 }

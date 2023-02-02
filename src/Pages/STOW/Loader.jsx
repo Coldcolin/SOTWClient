@@ -1,9 +1,9 @@
 import React from 'react'
-import imag from "../../images/Bubble-Preloader-1-1-unscreen.gif"
+import imag from "../../images/loader.gif"
 
 const Loader = () => {
   return (
-    <div>
+    <div style={{display: 'flex', width: "100%", height: "100%", justifyContent: "center", alignItems: "center"}}>
         <img src={imag} alt="loader"/>
     </div>
   )
