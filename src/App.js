@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 // import { useStateContext } from './Contexts/ContextProvider';
 import "./App.css"
 import Dashboard from './Dashboard/Dashboard';
@@ -11,13 +11,13 @@ function App() {
   // const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
   return (
     <div>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/*" element={<Dashboard />}/>
         <Route path="/Reg" element={<Registration/>} />
         <Route path="/Login" element={<Login/>} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
     </div>
   );
 }
