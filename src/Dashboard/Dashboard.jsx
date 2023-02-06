@@ -39,12 +39,13 @@ return (
             <Route element={<RequireAuth />} >
                 <Route path="voting" element={<Voting/>}/>
                 <Route path="user" element={<UserProfile/>}/>
+                <Route path="detail/:id" element={<Detail/>}/>
             </Route>
             
             <Route path="users" element={<AllUsers/>}/>
             <Route path="students" element={<AllStudents/>}/>
             <Route path="tutors" element={<Tutors/>}/>
-            <Route path="detail/:id" element={<Detail/>}/>
+            
         </Routes>
         </div>
     </div>

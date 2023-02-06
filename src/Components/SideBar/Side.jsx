@@ -10,6 +10,7 @@ import {MdOutlineLogout} from "react-icons/md";
 import {useSelector, useDispatch} from "react-redux";
 import { signOut } from "../../Contexts/IdReducer";
 import Swal from 'sweetalert2';
+import { AiOutlineClose } from 'react-icons/ai';
 
 const Side = ({toggle}) => {
     const dispatch = useDispatch();
@@ -30,7 +31,10 @@ const Side = ({toggle}) => {
   return (
     <div className="main-sidebar1" onClick={toggle}>
       <div className="top1">
+        <div style={{display: "flex", alignItems: "center", width: "100%", justifyContent: "space-around"}}>
+        <AiOutlineClose/>
         <img src={logo} alt="logo" className="logo1" />
+        </div>
         {
           profile ? (<div className="user-info1">
           {!profile? (<img className="profile-image1" src={image} alt="img" />):(<img className="profile-image1" src={profile.image} alt="img" />)}

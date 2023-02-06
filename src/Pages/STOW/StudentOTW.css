@@ -1,3 +1,8 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
 .sotw-main{
     min-height: calc(100vh - 60px);
     background-color: #F6F6F6;
@@ -103,13 +108,24 @@ h2 {
 
 .sotw-middle{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
     margin-top: 30px;
     flex-wrap: wrap;
 }
+.image-holders{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding-inline: 20px;
+    flex-wrap: wrap;
+}
 .sotw-sotw{
-    width: 568px;
+    /* width: 90%; */
+    /* width: 568px; */
+    /* flex: 1; */
     height: 457px;
     box-shadow: 0px 0px 0px 1px rgba(152, 161, 179, 0.1), 0px 15px 35px -5px rgba(17, 24, 38, 0.15), 0px 5px 15px rgba(0, 0, 0, 0.08);
     border-radius: 8px;
@@ -236,13 +252,25 @@ td{
     }
 }
 
-@media screen and (max-width: 768px){
+@media Screen and (width > 768px){
+    .sotw-sotw{
+        flex: 1;
+    }
+}
+
+@media Screen and (width < 768px){
+    .sotw-sotw{
+        width: 90%;
+    }
+}
+
+@media Screen and (max-width: 768px){
     .sotw-history {
         margin-top: 50px;
     }
 }
 
-@media screen and (max-width:1024px){
+@media Screen and (max-width:1024px){
     .sotw-history {
         margin-top: 50px;
     }

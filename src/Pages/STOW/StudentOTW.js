@@ -97,6 +97,7 @@ const getUsers =async()=>{
           </NavLink>
         </section>
         <section className="sotw-middle">
+              <div className="image-holders">
               {
                 loading? <div className="sotw-sotw"><Loader/></div>: <div className="sotw-sotw">
                 <img className="sotw-image" src={SOTWFE.image} alt="img"/>
@@ -118,6 +119,8 @@ const getUsers =async()=>{
                 </div>
               </div>
               }
+              </div>
+          <div className="image-holders">
           <div className="sotw-history">
             <p>Student of the week History Front-End</p>
             <table style={{width: "100%"}}>
@@ -163,6 +166,7 @@ const getUsers =async()=>{
                 ))
               }
             </table>
+          </div>
           </div>
         </section>
         <section></section>
