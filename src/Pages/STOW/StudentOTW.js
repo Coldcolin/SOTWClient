@@ -21,26 +21,73 @@ const StudentOTW = () => {
     const [allSOTWBE, setAllSOTWBE] = useState([]);
     const [allUsers, setAllUsers] = useState([])
     const [loading, setLoading] = useState(false)
+    const [loadingBF, setLoadingBF] = useState(false)
+    const [loadingRes, setLoadingRes] = useState(false)
+    const [someError, setSomeError] = useState(false)
+
+    const getRes = async()=>{
+      try{
+        setLoadingRes(true)
+        const rest = await axios.get(SOTWBE_URL);
+        const res = await axios.get(SOTWFE_URL)
+
+        setSOTWBE(rest.data.data.student);
+        setSOTWFE(res.data.data.student);
+        setLoadingRes(false)
+      }catch(error){
+        setSomeError(true)
+        setLoadingRes(false)
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          } else if (error.request) {
+          console.log(error.request);
+          } else {
+          console.log('Error', error.message);
+          }
+          console.log(error.config);
+          console.log(someError, loadingRes)
+      }
+    }
+
+    const getBF = async()=>{
+      try{
+        setLoadingBF(true)
+        const allBest = await axios.get(ALLSOTWBE_URL);
+        const allFest = await axios.get(ALLSOTWFE_URL);
+
+        setAllSOTWFE(allFest.data.data);
+        setAllSOTWBE(allBest.data.data);
+        setLoadingBF(false)
+
+      }catch(error){
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          } else if (error.request) {
+          console.log(error.request);
+          } else {
+          console.log('Error', error.message);
+          }
+          console.log(error.config);
+          setSomeError(true)
+      }
+    }
 
 const getUsers =async()=>{
     try{
       setLoading(true)
-    // const res = await axios.get("http://localhost:4400/users/allusers")
-    const res = await axios.get(SOTWFE_URL)
-    const rest = await axios.get(SOTWBE_URL);
-    const allBest = await axios.get(ALLSOTWBE_URL);
-    const allFest = await axios.get(ALLSOTWFE_URL);
+    
     const resAll = await axios.get(ALL_USERS);
 
     setAllUsers(resAll.data.data);
-    setSOTWFE(res.data.data.student);
-    setSOTWBE(rest.data.data.student);
-    setAllSOTWFE(allFest.data.data);
-    setAllSOTWBE(allBest.data.data);
+    
     setLoading(false)
-    // console.log(allBest.data.data);
-    // console.log(allFest.data.data);
+    
 }catch(error){
+  setLoading(false)
         if (error.response) {
         console.log(error.response.data);
         console.log(error.response.status);
@@ -51,6 +98,7 @@ const getUsers =async()=>{
         console.log('Error', error.message);
         }
         console.log(error.config);
+        setSomeError(true)
     }
     }
 
@@ -62,6 +110,8 @@ const getUsers =async()=>{
 
     useEffect(()=>{
     getUsers();
+    getRes();
+    getBF();
     }, [])
   return (
     <div className="sotw-main">
@@ -99,25 +149,25 @@ const getUsers =async()=>{
         <section className="sotw-middle">
               <div className="image-holders">
               {
-                loading? <div className="sotw-sotw"><Loader/></div>: <div className="sotw-sotw">
+                loadingRes === true ? <div className="sotw-sotw"><Loader/></div> : someError && (loadingRes === false) ? <div className="sotw-sotw"><p>No Student yet</p></div>: loadingRes === false? <div className="sotw-sotw">
                 <img className="sotw-image" src={SOTWFE.image} alt="img"/>
                 <div className= "sotw-image-info">
                 <p className="sotw-image-info-h4">STUDENT OF THE WEEK</p>
                 <p className="sotw-image-info-h3">{SOTWFE.name}</p>
                 <p className="sotw-image-info-p">Frontend Developer</p>
                 </div>
-              </div>
+              </div>: null
               }
           
               {
-                loading? <div className="sotw-sotw"><Loader/></div> : <div className="sotw-sotw">
+                loadingRes === true ? <div className="sotw-sotw"><Loader/></div>: someError && (loadingRes === false) ? <div className="sotw-sotw"><p>No Student yet</p></div> :loadingRes === false? <div className="sotw-sotw">
                 <img className="sotw-image" src={SOTWBE.image} alt="img"/>
                 <div className= "sotw-image-info">
                 <p className="sotw-image-info-h4">STUDENT OF THE WEEK</p>
                 <p className="sotw-image-info-h3">{SOTWBE.name}</p>
                 <p className="sotw-image-info-p">Backend Developer</p>
                 </div>
-              </div>
+              </div>: null
               }
               </div>
           <div className="image-holders">
