@@ -11,7 +11,8 @@ const Assessment = () => {
   const [classParticipation, setClassParticipation] = useState(0);
   const [classAssessment, setClassAssessment] = useState(0);
   const [week, setWeek] = useState(0);
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false)
 
 
   const Toast = Swal.mixin({
@@ -28,12 +29,22 @@ const Assessment = () => {
  
   const addAssessment = async (id) =>{
     try{
-      await axios.post(`https://sotw-app.onrender.com/rating/add/${id}`,{Assignments: Assignments, personalDefense: personalDefense, classParticipation: classParticipation, punctuality: punctuality, classAssessment: classAssessment, week: week});
-      setPunctuality(0); setAssignments(0); setPersonalDefense(0); setClassParticipation(0); setClassAssessment(0);
-      Toast.fire({
-        icon: 'success',
-        title: 'Assessment Added'
+      const Toaster = await Swal.fire({
+        title: 'Add Assessment?',
+        text: `${JSON.stringify({Assignments: Assignments, personalDefense: personalDefense, classParticipation: classParticipation, punctuality: punctuality, classAssessment: classAssessment, week: week})}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#FFB703',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, add it!'
       })
+      if(Toaster.isConfirmed){
+        await axios.post(`https://sotw-app.onrender.com/rating/add/${id}`,{Assignments: Assignments, personalDefense: personalDefense, classParticipation: classParticipation, punctuality: punctuality, classAssessment: classAssessment, week: week});
+          Toast.fire({
+          icon: 'success',
+          title: 'Assessment Added'
+        })
+      }
     }catch(error){
       if(error.response){
         Toast.fire({
@@ -52,11 +63,22 @@ const Assessment = () => {
 
   const addSOTWFE = async (id)=>{
     try{
-      await axios.post(`https://sotw-app.onrender.com/SOW/create/${id}`,{week: week});
-      Toast.fire({
-        icon: 'success',
-        title: 'Student Added'
+      const Toaster = await Swal.fire({
+        title: 'Please Confirm',
+        text: `Make Him/Her student of the week ${week} for Front end`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#FFB703',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
       })
+      if(Toaster.isConfirmed){
+        await axios.post(`https://sotw-app.onrender.com/SOW/create/${id}`,{week: week});
+        Toast.fire({
+          icon: 'success',
+          title: 'Student Added'
+        })
+      }
     }catch(error){
       if (error.response) {
         console.log(error.response.data);
@@ -73,11 +95,22 @@ const Assessment = () => {
   }
   const addSOTWBE = async (id)=>{
     try{
-      await axios.post(`https://sotw-app.onrender.com/BSOW/create/${id}`,{week: week});
-      Toast.fire({
-        icon: 'success',
-        title: 'Student Added'
+      const Toaster = await Swal.fire({
+        title: 'Please Confirm',
+        text: `Make Him/Her student of the week ${week} for Back end`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#FFB703',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
       })
+      if(Toaster.isConfirmed){
+        await axios.post(`https://sotw-app.onrender.com/BSOW/create/${id}`,{week: week});
+        Toast.fire({
+          icon: 'success',
+          title: 'Student Added'
+        })
+      }
     }catch(error){
       if (error.response) {
         console.log(error.response.data);
@@ -95,9 +128,11 @@ const Assessment = () => {
 
   const getUsers =async()=>{
     try{
+      setLoading(true)
       const res = await axios.get("https://sotw-app.onrender.com/users/allusers")
       const users = res.data.data;
       const filteredUsers = users.filter((e)=> e.stack !== "Tutor");
+      setLoading(false)
       setUsers(filteredUsers)
     }catch(error){
       if (error.response) {
@@ -117,7 +152,7 @@ const Assessment = () => {
   }, [])
   return (
     <div className="assessment-content">
-    <div className="assessment-title">Student Assessment</div>
+    {loading? <div><h1>Loading Students...</h1></div>:<div className="assessment-title">Student Assessment</div>}
       <div className="assessment-top">
         {/* <div className="assessment-filter">All</div>
         <div className="assessment-search">Search</div> */}

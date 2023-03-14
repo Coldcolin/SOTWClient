@@ -2,12 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "../../api/axios"
 import {AuthContext} from '../../Contexts/AuthProvider';
+import Swal from "sweetalert2";
 
 const allStuds = "/users/allusers"
 
 const AllStudents = () => {
   const {saveUser} = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  
   
   const [users, setUsers] = useState([])
   const getUsers =async()=>{
@@ -31,9 +33,26 @@ const AllStudents = () => {
   }
   const deleteUser =async(id)=>{
     try{
-      const res = await axios.delete(`/users/remove/${id}`)
-      console.log(res)
-      getUsers();
+      const Toast = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
+      
+      if(Toast.isConfirmed){
+        await axios.delete(`/users/remove/${id}`)
+        Swal.fire(
+                'Deleted!',
+                'Student has be removed.',
+                'success'
+        )
+        getUsers();
+      }
+      
     }catch(error){
       if (error.response) {
         console.log(error.response.data);
