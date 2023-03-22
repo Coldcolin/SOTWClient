@@ -3,13 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "../../api/axios"
 import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
-
 const allStuds = "/users/allusers"
 
-const AllStudents = () => {
-  const {saveUser} = useContext(AuthContext);
+const Alumni = () => {
+    const {saveUser} = useContext(AuthContext);
   const navigate = useNavigate();
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
   
   
   const [users, setUsers] = useState([])
@@ -18,7 +17,7 @@ const AllStudents = () => {
       setLoad(true)
       const res = await axios.get(allStuds)
       const users = res.data.data;
-      const filteredUsers = await users.filter((e)=> e.role === "student");
+      const filteredUsers = await users.filter((e)=> e.role === "alumni");
       setUsers(filteredUsers)
       setLoad(false)
     }catch(error){
@@ -34,45 +33,11 @@ const AllStudents = () => {
       console.log(error.config);
     }
   }
-  const deleteUser =async(id)=>{
+
+  const makeStudent =async(id)=>{
     try{
       const Toast = await Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      })
-      
-      if(Toast.isConfirmed){
-        await axios.delete(`/users/remove/${id}`)
-        Swal.fire(
-                'Deleted!',
-                'Student has been removed.',
-                'success'
-        )
-        getUsers();
-      }
-      
-    }catch(error){
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-    }
-  }
-  const makeAlumni =async(id)=>{
-    try{
-      const Toast = await Swal.fire({
-        title: 'Make Alumni?',
+        title: 'Make Student?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -82,10 +47,10 @@ const AllStudents = () => {
       })
       
       if(Toast.isConfirmed){
-        await axios.patch(`/users/alumni/${id}`)
+        await axios.patch(`/users/student/${id}`)
         Swal.fire(
                 'Done!',
-                'Student is now an Alumni.',
+                'Alumni is now a Student.',
                 'success'
         )
         getUsers();
@@ -107,6 +72,7 @@ const AllStudents = () => {
   useEffect(()=>{
     getUsers()
   }, [])
+
   return (
     <div className="all-body">
       <div className="all-head">
@@ -136,8 +102,8 @@ const AllStudents = () => {
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
                 <td>{props?.overallRating}</td>
-                {saveUser?.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
-                {saveUser?.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
+                
+                {saveUser?.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> makeStudent(props._id)}>Make Alumni</button></td>: null}
               </tr>
             ))}
             </tbody>
@@ -148,4 +114,4 @@ const AllStudents = () => {
   )
 }
 
-export default AllStudents
+export default Alumni

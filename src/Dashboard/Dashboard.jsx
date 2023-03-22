@@ -7,6 +7,7 @@ import StudentOTW from '../Pages/STOW/StudentOTW'
 import Voting from '../Pages/VOTING/Voting'
 import UserProfile from '../Pages/UserProfile/UserProfile'
 import Assessment from '../Pages/Assessment/Assessment'
+import Alumni from '../Pages/Alumni/Alumni'
 import "./Dashboard.css"
 import AllUsers from "../Pages/AllUsers/AllUsers";
 import AllStudents from "../Pages/AllStudents/AllStudents";
@@ -39,6 +40,7 @@ return (
             <Route element={<RequireAuth />} >
                 <Route path="voting" element={<Voting/>}/>
                 <Route path="user" element={<UserProfile/>}/>
+                <Route path="alumni" element={<Alumni/>}/>
                 <Route path="detail/:id" element={<Detail/>}/>
             </Route>
             

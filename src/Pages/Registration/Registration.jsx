@@ -20,7 +20,9 @@ const Registration = () => {
 
   const schemaModel = yup.object().shape({
     name: yup.string().required("Please add your name"),
-    stack: yup.string().required("Please add your name"),
+    stack: yup.string().required("Please add your stack"),
+    role: yup.string().required("Please add your role"),
+    cohort: yup.number().required("Please add your cohort"),
     email: yup.string().email().required("Please input your email"),
     password: yup.string().required("Please input your password")
   });
@@ -47,12 +49,14 @@ const Registration = () => {
 
   const signUp = handleSubmit( async (data) =>{
     try{
-      const {email, password, stack, name}= data;
+      const {email, password, stack, name, role, cohort}= data;
       const formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
       formData.append("password", password);
       formData.append("stack", stack);
+      formData.append("role", role);
+      formData.append("cohort", cohort);
       formData.append("image", imageDB);
       const config = {
         headers: {
@@ -101,21 +105,29 @@ const Registration = () => {
             <input id="upload" type="file" style={{display: "none"}} onChange={File}/>
           </div>
           <input className="reg-input" placeholder="Full Name" {...register("name")}/>
-          <label>{errors.name && <p>Please enter the Name.</p>}</label>
-          {/* <input className="reg-input" placeholder="Phone Number" /> */}
+          <label style={{color: "red", fontSize: "11px"}}>{errors.name && <p>Please enter the Name.</p>}</label>
+          <input className="reg-input" placeholder="cohort" {...register("cohort")} />
+          <label style={{color: "red", fontSize: "11px"}}>{errors.cohort && <p>Please enter the Cohort.</p>}</label>
           <input className="reg-input" placeholder="email" {...register("email")}/>
-          <label>{errors.email && <p>Please enter the email.</p>}</label>
+          <label style={{color: "red", fontSize: "11px"}}>{errors.email && <p>Please enter the email.</p>}</label>
           {/* <input className="reg-input" placeholder="Stack/Role" {...register("stack")}/> */}
           <select className="reg-input" {...register("stack")}>
-              <option>-- Select Stack/Role --</option>
+              <option>-- Select Stack --</option>
               <option>Front End</option>
               <option>Back End</option>
               <option>Tutor</option>
             </select>
-          <label>{errors.stack && <p>Please enter the Role.</p>}</label>
+          <label style={{color: "red", fontSize: "11px"}}>{errors.stack && <p>Please enter the Stack.</p>}</label>
+          <select className="reg-input" {...register("role")}>
+              <option>-- Select Role --</option>
+              <option>Student</option>
+              <option>Admin</option>
+              <option>Tutor</option>
+            </select>
+          <label style={{color: "red", fontSize: "11px"}}>{errors.stack && <p>Please enter the Role.</p>}</label>
           <input className="reg-input" placeholder="Password" type="password" {...register("password")} />
-          <label>{errors.password  && <p>Please enter the Password.</p>}</label>
-          <button className="reg-signup-button" type="submit">Sign Up</button>
+          <label style={{color: "red", fontSize: "11px"}}>{errors.password  && <p>Please enter the Password.</p>}</label>
+          <button className={imageDB? "reg-signup-button":"reg-signup-button-disabled"} type="submit" disabled={ imageDB? "true": "false"}>Sign Up</button>
         </form>
         </div>
       </div>

@@ -8,15 +8,18 @@ const ALL_USERS = "/users/allusers"
 
 const AllUsers = () => {
   const [users, setUsers]= useState([])
+  const [load, setLoad]= useState(false)
   const navigate = useNavigate()
   const getUsers =async()=>{
     try{
+      setLoad(true)
       const res = await axios.get(ALL_USERS)
       // console.log(res.data.data)
       const users = res.data.data;
       // const filteredUsers = users.filter((e)=> e.stack !== "Tutor");
       // // console.log(filteredUsers);
-      setUsers(users)
+      setUsers(users);
+      setLoad(false)
     }catch(error){
       if (error.response) {
         console.log(error.response.data);
@@ -40,7 +43,11 @@ const AllUsers = () => {
         <div className="all-search">Search</div>
       </div>
       <div className="all-user-info">
-      <table className="assessment-table-holder">
+      {
+        load? <div>
+          <h2>Loading...</h2>
+        </div>:
+        <table className="assessment-table-holder">
           <tr className="assessment-table">
             <th className="assessment-table-title"></th>
             <th className="assessment-table-title">NAME</th>
@@ -58,6 +65,7 @@ const AllUsers = () => {
               </tr>
             ))}
         </table>
+      }
       </div>
 
     </div>

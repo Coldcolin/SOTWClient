@@ -3,6 +3,7 @@ import "./StudentOTW.css";
 import {FaGraduationCap} from "react-icons/fa";
 import {FaChalkboardTeacher} from "react-icons/fa"
 import {HiOutlineUserGroup} from "react-icons/hi"
+import {FaUserGraduate} from "react-icons/fa"
 import giffy from "../../images/loader.gif";
 import {NavLink} from "react-router-dom";
 import Loader from "./Loader.jsx"
@@ -103,22 +104,27 @@ const getUsers =async()=>{
     }
 
     const getStats = ()=>{
-      return allUsers.filter((i)=> i.stack !== "Tutor");
+      return allUsers.filter((i)=> i.role === "student");
+    }
+    const getAlumni = ()=>{
+      return allUsers.filter((i)=> i.role === "alumni");
     }
     
     const memoizedVal = useMemo(() => getStats(), [allUsers]);
+    const allAlumni = useMemo(() => getAlumni(), [allUsers]);
 
     useEffect(()=>{
     getUsers();
     getRes();
     getBF();
+
     }, [])
   return (
     <div className="sotw-main">
       <main className="sotw-container">
       <h2>Dashboard</h2>
         <section className="sotw-top">
-          <NavLink to="/users" className="sotw-navs">
+          {/* <NavLink to="/users" className="sotw-navs">
             {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div> :<div className="sotw-boxes">
               <div className="sotw-circle-1"><HiOutlineUserGroup/></div>
               <div className="sotw-info">
@@ -126,7 +132,7 @@ const getUsers =async()=>{
                 <span>All Users</span>
               </div>
             </div>}
-          </NavLink>
+          </NavLink> */}
           <NavLink to="students" className="sotw-navs">
             {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
               <div className="sotw-circle-2"><FaGraduationCap/></div>
@@ -141,7 +147,16 @@ const getUsers =async()=>{
               <div className="sotw-circle-3"><FaChalkboardTeacher/></div>
               <div className="sotw-info">
                 <div>{allUsers.length - memoizedVal.length}</div>
-                <span>Instructors</span>
+                <span>Staff</span>
+              </div>
+            </div>}
+          </NavLink>
+          <NavLink to="alumni" className="sotw-navs">
+            {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
+              <div className="sotw-circle-1"><FaUserGraduate/></div>
+              <div className="sotw-info">
+                <div>{allAlumni.length}</div>
+                <span>Alumni</span>
               </div>
             </div>}
           </NavLink>
