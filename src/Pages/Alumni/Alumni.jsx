@@ -103,7 +103,7 @@ const Alumni = () => {
                 <td>{props?.stack}</td>
                 <td>{props?.overallRating}</td>
                 
-                {saveUser?.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> makeStudent(props._id)}>Make Alumni</button></td>: null}
+                {saveUser?.role === "admin" ? <td><button className="assessment-submit" onClick={()=> makeStudent(props._id)}>Make Student</button></td>: null}
               </tr>
             ))}
             </tbody>

@@ -50,7 +50,7 @@ const Login = () => {
       localStorage.setItem("SOTWUser", JSON.stringify({name: res.data.data.name, stack: res.data.data.stack}));
       dispatch(addId(res.data.data));
       // console.log(res.data.data.name, res.data.data.stack);
-      setSaveUser({name: res.data.data.name, stack: res.data.data.stack});
+      setSaveUser({name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role});
       reset();
       Toast.fire({
         icon: 'success',

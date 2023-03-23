@@ -136,8 +136,8 @@ const AllStudents = () => {
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
                 <td>{props?.overallRating}</td>
-                {saveUser?.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
-                {saveUser?.stack === "Tutor" ? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
+                {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
+                {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
               </tr>
             ))}
             </tbody>

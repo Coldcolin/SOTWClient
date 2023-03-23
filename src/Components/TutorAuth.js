@@ -5,7 +5,7 @@ const TutorAuth = () => {
     const { saveUser } = useAuth();
     const location = useLocation();
   return (
-    saveUser?.stack === "Tutor"? <Outlet />: <Navigate to="/user" state={{ from : location }} replace />
+    saveUser?.role === "tutor"? <Outlet />: <Navigate to="/user" state={{ from : location }} replace />
   )
 }
 

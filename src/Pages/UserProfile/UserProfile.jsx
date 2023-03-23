@@ -40,12 +40,12 @@ const UserProfile = () => {
             <p className="user-name">Name: {profile.name}</p>
             <p className='user-talk'>Email: {profile.email}</p>
             {/* <p className='user-talk'>Phone: {profile.phone}</p> */}
-            <p className='user-talk'>Stack: {profile.stack}</p>
+            <p className='user-talk'>Role: {profile.role}</p>
           </div>
         </div>
       </article>
       {
-        profile.stack === "Tutor"? null:<article className='user-assessment'>
+        profile.role !== "student"? null:<article className='user-assessment'>
         <p>Your Assessment History</p>
         <table style={{width: "100%"}}>
           <tr className="user-table-head">

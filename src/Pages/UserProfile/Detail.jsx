@@ -62,7 +62,9 @@ const Detail = () => {
           <div className="user-detail">
             <p className="user-name">Name: {user.name}</p>
             <p className='user-talk'>Email: {user.email}</p>
-            <p className='user-talk'>Stack: {user.stack}</p>
+            {
+              user.role === "student"? <p className='user-talk'>Stack: {user.stack}</p>: <p className='user-talk'>Role: {user.role}</p>
+            }
           </div>
         </div>
       </article>: null
