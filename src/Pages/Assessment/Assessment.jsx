@@ -12,7 +12,9 @@ const Assessment = () => {
   const [classAssessment, setClassAssessment] = useState(0);
   const [week, setWeek] = useState(0);
   const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [frontEnd, setFrontEnd] = useState([]);
+  const [backEnd, setBackEnd] = useState([]);
 
 
   const Toast = Swal.mixin({
@@ -134,6 +136,10 @@ const Assessment = () => {
       const filteredUsers = users.filter((e)=> e.stack !== "Tutor");
       setLoading(false)
       setUsers(filteredUsers)
+      const back = users.filter(i => i.stack === "Back End");
+      const front = users.filter(i => i.stack === "Front End");
+      setFrontEnd(front);
+      setBackEnd(back);
     }catch(error){
       if (error.response) {
         console.log(error.response.data);
@@ -175,7 +181,25 @@ const Assessment = () => {
             }</th>
           </tr>
             {/* <form> */}
-            {users.map((props)=>(
+            <h6>Front End Students</h6>
+            {frontEnd.map((props)=>(
+              <tr className="assessment-user-info" key={props._id}>
+                <td><img src={props.image} alt="imae" className="assessment-image"/></td>
+                <td><div className="assessment-item">{props.name}</div></td>
+                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={e => setPunctuality(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={e => setAssignments(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={e => setClassAssessment(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={e => setClassParticipation(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={e => setPersonalDefense(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
+                <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
+                {
+                  !show ? <td></td>:props.stack === "Back End"? <td><button className="assessment-submit SOTWFE" type="submit" onClick={(e)=> addSOTWBE(props._id)}>make SOTW BE</button></td>: <td><button className="assessment-submit SOTWBE" type="submit" onClick={(e)=> addSOTWFE(props._id)}>make SOTW FE</button></td>
+                }
+              </tr>
+            ))}
+            <h6>Back End Students</h6>
+            {backEnd.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
                 <td><img src={props.image} alt="imae" className="assessment-image"/></td>
                 <td><div className="assessment-item">{props.name}</div></td>
