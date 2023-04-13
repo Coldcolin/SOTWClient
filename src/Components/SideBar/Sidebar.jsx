@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import "./SideBar.css"
 // import { useStateContext } from '../../Contexts/ContextProvider.js';
 import image from "../../images/avatar.jpg"
@@ -14,11 +14,12 @@ import {useSelector, useDispatch} from "react-redux";
 // import useAuth from "../../Hooks/useAuth.js";
 import { signOut } from "../../Contexts/IdReducer";
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 
 
 const Sidebar = () => {
-  // const { setSaveUser } = useAuth();
+  const {saveUser} = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const profile = useSelector((state) => state.Id.Id);
@@ -80,7 +81,7 @@ const Sidebar = () => {
                 })
                 navigate("/login")
 							}}
-      ><MdOutlineLogout/> Logout</div>: <Link to="/Login" className="Log-in"><FiLogIn/> Login</Link>
+      ><MdOutlineLogout/> {saveUser? "Logout": "Login"}</div>: <Link to="/Login" className="Log-in"><FiLogIn/> {saveUser? "Login": "Logout"}</Link>
       }
     </div>
   )

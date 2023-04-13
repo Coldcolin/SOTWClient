@@ -106,12 +106,16 @@ const getUsers =async()=>{
     const getStats = ()=>{
       return allUsers.filter((i)=> i.role === "student");
     }
+    const getTutor = ()=>{
+      return allUsers.filter((i)=> i.role === "tutor" || i.role === "admin");
+    }
     const getAlumni = ()=>{
       return allUsers.filter((i)=> i.role === "alumni");
     }
     
     const memoizedVal = useMemo(() => getStats(), [allUsers]);
     const allAlumni = useMemo(() => getAlumni(), [allUsers]);
+    const allTutor = useMemo(() => getTutor(), [allUsers]);
 
     useEffect(()=>{
     getUsers();
@@ -146,7 +150,7 @@ const getUsers =async()=>{
             {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
               <div className="sotw-circle-3"><FaChalkboardTeacher/></div>
               <div className="sotw-info">
-                <div>{allUsers.length - memoizedVal.length}</div>
+                <div>{allTutor.length}</div>
                 <span>Staff</span>
               </div>
             </div>}
