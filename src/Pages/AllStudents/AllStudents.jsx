@@ -13,21 +13,23 @@ const AllStudents = () => {
   const [load, setLoad] = useState(false)
   
   
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [frontEnd, setFrontEnd] = useState([]);
   const [backEnd, setBackend] = useState([]);
   const getUsers =async()=>{
     try{
       setLoad(true)
       const res = await axios.get(allStuds)
-      const users = res.data.data;
-      const filteredUsers = await users.filter((e)=> e.role === "student");
-      setUsers(filteredUsers)
-      setLoad(false);
-      const back = users.filter(i => i.stack === "Back End");
-      const front = users.filter(i => i.stack === "Front End");
+      const user = res.data.data;
+      const filteredUsers = await user.filter((e)=> e.role === "student");
+      // setUsers(filteredUsers)
+      
+      const back = filteredUsers.filter(i => i.stack === "Back End");
+      const front = filteredUsers.filter(i => i.stack === "Front End");
       setFrontEnd(front);
       setBackend(back);
+      // console.log(backEnd)
+      setLoad(false);
       
     }catch(error){
       if (error.response) {
@@ -137,31 +139,32 @@ const AllStudents = () => {
             <th className="assessment-table-title">{" "}</th>
           </tr>
           </thead>
+          {/* <h4>Front End Students</h4> */}
             <tbody>
-            <h4>Front End Students</h4>
+            
               {/* <form> */}
               {frontEnd?.map((props)=>(
               <tr className="assessment-user-info" key={props?._id}>
                 <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
-                <td>{props?.overallRating}</td>
+                <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td>
                 {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
-                {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
+                {(saveUser?.role === "tutor" || saveUser?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
               </tr>
             ))}
-            <h4>Back End Students</h4>
-              {backEnd?.map((props)=>(
+            {backEnd?.map((props)=>(
               <tr className="assessment-user-info" key={props?._id}>
                 <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
-                <td>{props?.overallRating}</td>
+                <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td>
                 {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
-                {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
+                {(saveUser?.role === "tutor" || saveUser?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
               </tr>
             ))}
             </tbody>
+            
         </table>
         }
       </div>

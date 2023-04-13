@@ -16,9 +16,10 @@ const Alumni = () => {
     try{
       setLoad(true)
       const res = await axios.get(allStuds)
-      const users = res.data.data;
-      const filteredUsers = await users.filter((e)=> e.role === "alumni");
+      const user = res.data.data;
+      const filteredUsers = await user.filter((e)=> e.role === "alumni");
       setUsers(filteredUsers)
+      // console.log(users)
       setLoad(false)
     }catch(error){
       if (error.response) {
@@ -101,7 +102,7 @@ const Alumni = () => {
                 <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
-                <td>{props?.overallRating}</td>
+                <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td>
                 
                 {saveUser?.role === "admin" ? <td><button className="assessment-submit" onClick={()=> makeStudent(props._id)}>Make Student</button></td>: null}
               </tr>

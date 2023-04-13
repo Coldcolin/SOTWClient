@@ -203,8 +203,8 @@ const getUsers =async()=>{
                   <tr key={props._id}>
                     <td>{props.week}</td>
                     <td>{props.student.name}</td>
-                    <td>{props.student.overallRating}</td>
-                    <td>{props.student.weeklyRating}</td>
+                    <td>{(Math.round(((props?.student.overallRating /20) * 100)* 10))/10}%</td>
+                    <td>{(Math.round(((props?.student.weeklyRating /20) * 100)* 10))/10}%</td>
                   </tr>
                 ))
               }
@@ -225,8 +225,8 @@ const getUsers =async()=>{
                   <tr key={props._id}>
                     <td>{props.week}</td>
                     <td>{props.student.name}</td>
-                    <td>{props.student.overallRating}</td>
-                    <td>{props.student.weeklyRating}</td>
+                    <td>{(Math.round(((props?.student.overallRating /20) * 100)* 10))/10}%</td>
+                    <td>{(Math.round(((props?.student.weeklyRating /20) * 100)* 10))/10}%</td>
                   </tr>
                 ))
               }

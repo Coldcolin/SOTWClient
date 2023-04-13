@@ -132,14 +132,15 @@ const Assessment = () => {
     try{
       setLoading(true)
       const res = await axios.get("https://sotw-app.onrender.com/users/allusers")
-      const users = res.data.data;
-      const filteredUsers = users.filter((e)=> e.stack !== "Tutor");
-      setLoading(false)
+      const user = res.data.data;
+      const filteredUsers = user.filter((e)=> e.role === "student");
+      
       setUsers(filteredUsers)
-      const back = users.filter(i => i.stack === "Back End");
-      const front = users.filter(i => i.stack === "Front End");
+      const back = filteredUsers.filter(i => i.stack === "Back End");
+      const front = filteredUsers.filter(i => i.stack === "Front End");
       setFrontEnd(front);
       setBackEnd(back);
+      setLoading(false)
     }catch(error){
       if (error.response) {
         console.log(error.response.data);
@@ -166,6 +167,7 @@ const Assessment = () => {
       <div className="a-table">
       {/* <form > */}
       <table className="assessment-table-holder">
+          <thead>
           <tr className="assessment-table">
             <th className="assessment-table-title">IMAGE</th>
             <th className="assessment-table-title">FULL NAME</th>
@@ -180,8 +182,10 @@ const Assessment = () => {
               !show ? <button className="assessment-submit SOTWBE" type="submit" onClick={()=> setShow(!show)}>Choose SOTW</button>: <button className="assessment-submit SOTWBE" type="submit" onClick={()=> setShow(!show)}>hide Buttons</button>
             }</th>
           </tr>
+          </thead>
             {/* <form> */}
-            <h6>Front End Students</h6>
+            {/* <h6>Front End Students</h6> */}
+            <tbody>
             {frontEnd.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
                 <td><img src={props.image} alt="imae" className="assessment-image"/></td>
@@ -198,7 +202,7 @@ const Assessment = () => {
                 }
               </tr>
             ))}
-            <h6>Back End Students</h6>
+            {/* <h6>Back End Students</h6> */}
             {backEnd.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
                 <td><img src={props.image} alt="imae" className="assessment-image"/></td>
@@ -215,6 +219,7 @@ const Assessment = () => {
                 }
               </tr>
             ))}
+            </tbody>
         </table>
       {/* </form> */}
         </div>
