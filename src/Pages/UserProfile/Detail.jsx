@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import "./UserProfile.css";
 import {useParams} from "react-router-dom"
 import axios from "axios";
+import {AuthContext} from '../../Contexts/AuthProvider';
+import Swal from "sweetalert2";
 
 const Detail = () => {
+  const {saveUser} = useContext(AuthContext);
     const {id} = useParams();
     const [user, setUser] = useState();
     const [ratings, setRatings] = useState();
@@ -45,6 +48,43 @@ const Detail = () => {
           console.log(error.config);
         }
       }
+
+      const deleteRating=async( week)=>{
+        try{
+          let studentId = user._id;
+          // console.log(user._id, week)
+          const Toast = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          })
+          if(Toast.isConfirmed){
+            await axios.delete(`https://sotw-app.onrender/rating/delete/${studentId}/${week}`)
+            Swal.fire(
+                    'Deleted!',
+                    'Rating has been removed.',
+                    'success'
+            )
+            getUser();
+          }
+        }catch(error){
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+        }
+      }
+
       useEffect(()=>{
         getUser()
       },[])
@@ -82,6 +122,7 @@ const Detail = () => {
             <th>CLASS ASSESSMENT</th>
             <th>PERSONAL DEFENCE</th>
             <th>AV. TOTAL 100%</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -94,7 +135,9 @@ const Detail = () => {
             <td>{props.classParticipation}</td>
             <td>{props.classAssessment}</td>
             <td>{props.personalDefense}</td>
-            <td>{(Math.round(props.total * 10))/10}</td>
+            {/* <td>{(Math.round(props.total * 10))/10}</td> */}
+            <td>{(Math.round(((props?.total /20) * 100)* 10))/10}%</td>
+            {(saveUser?.role === "tutor" || saveUser?.role === "admin")? <td><button className="assessment-submit" onClick={()=> deleteRating(props.week)}>Delete</button></td>: null}
           </tr>
             ))
           }

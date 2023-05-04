@@ -24,7 +24,8 @@ const Registration = () => {
     role: yup.string().required("Please add your role"),
     cohort: yup.number().required("Please add your cohort"),
     email: yup.string().email().required("Please input your email"),
-    password: yup.string().required("Please input your password")
+    password: yup.string().required("Please input your password"),
+
   });
 
   const {register, reset, handleSubmit, formState: {errors}} = useForm({ resolver: yupResolver( schemaModel)});
@@ -120,14 +121,14 @@ const Registration = () => {
           <label style={{color: "red", fontSize: "11px"}}>{errors.stack && <p>Please enter the Stack.</p>}</label>
           <select className="reg-input" {...register("role")}>
               <option>-- Select Role --</option>
-              <option>Student</option>
-              <option>Admin</option>
-              <option>Tutor</option>
+              <option>student</option>
+              <option>admin</option>
+              <option>tutor</option>
             </select>
           <label style={{color: "red", fontSize: "11px"}}>{errors.stack && <p>Please enter the Role.</p>}</label>
           <input className="reg-input" placeholder="Password" type="password" {...register("password")} />
           <label style={{color: "red", fontSize: "11px"}}>{errors.password  && <p>Please enter the Password.</p>}</label>
-          <button className={imageDB? "reg-signup-button":"reg-signup-button-disabled"} type="submit" disabled={ imageDB? "true": "false"}>Sign Up</button>
+          <button className={imageDB? "reg-signup-button":"reg-signup-button-disabled"} type="submit" disabled={ imageDB? false: true}>Sign Up</button>
         </form>
         </div>
       </div>

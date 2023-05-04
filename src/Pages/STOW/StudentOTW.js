@@ -218,12 +218,15 @@ const getUsers =async()=>{
           <div className="sotw-history">
             <p>Student of the week History Back-End</p>
             <table style={{width: "100%"}}>
+              <thead>
               <tr>
                 <th>WEEK</th>
                 <th>NAME</th>
                 <th>AVERAGE RATING</th>
                 <th>CURRENT RATING</th>
               </tr>
+              </thead>
+              <tbody>
               {
                 allSOTWBE?.map((props)=>(
                   <tr key={props._id}>
@@ -234,6 +237,8 @@ const getUsers =async()=>{
                   </tr>
                 ))
               }
+              </tbody>
+
             </table>
           </div>
           </div>

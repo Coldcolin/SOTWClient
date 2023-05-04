@@ -148,7 +148,7 @@ const AllStudents = () => {
                 <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
-                <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td>
+                {props.overallRating? <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
                 {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
                 {(saveUser?.role === "tutor" || saveUser?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
               </tr>
@@ -158,7 +158,7 @@ const AllStudents = () => {
                 <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
-                <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td>
+                {props.overallRating? <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
                 {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
                 {(saveUser?.role === "tutor" || saveUser?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
               </tr>
