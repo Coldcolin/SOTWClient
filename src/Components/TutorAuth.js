@@ -1,9 +1,12 @@
+import { useContext} from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import {AuthContext} from "../Contexts/AuthProvider";
 
 const TutorAuth = () => {
-    const { saveUser } = useAuth();
+    const { saveUser } = useContext(AuthContext);
     const location = useLocation();
+    console.log(saveUser?.role)
   return (
     saveUser?.role === "tutor"? <Outlet />: <Navigate to="/user" state={{ from : location }} replace />
   )

@@ -47,7 +47,6 @@ return (
             <Route path="users" element={<AllUsers/>}/>
             <Route path="students" element={<AllStudents/>}/>
             <Route path="tutors" element={<Tutors/>}/>
-            
         </Routes>
         </div>
     </div>

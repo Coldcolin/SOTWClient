@@ -19,10 +19,11 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 
 
 const Sidebar = () => {
-  const {saveUser} = useContext(AuthContext);
+  const {saveUser, logOutFunc} = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const profile = useSelector((state) => state.Id.Id);
+  const [user, setUser] = React.useState(JSON.parse((localStorage.getItem("SOTWUser"))))
 
   const Toast = Swal.mixin({
     toast: true,
@@ -72,16 +73,17 @@ const Sidebar = () => {
         {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
       </div>
       {
-        profile ? <div className="Log-out" onClick={() => {
-								dispatch(signOut());
-                localStorage.setItem("SOTWUser", JSON.stringify({}))
+        user.role !== undefined ? <div className="Log-out" onClick={() => {
+								logOutFunc()
+                localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
                 Toast.fire({
                     icon: 'success',
                     title: 'Logged out successfully'
                 })
                 navigate("/login")
 							}}
-      ><MdOutlineLogout/> {saveUser? "Logout": "Login"}</div>: <Link to="/Login" className="Log-in"><FiLogIn/> {saveUser? "Login": "Logout"}</Link>
+      ><MdOutlineLogout/> Logout</div>: <div className="Log-out" style={{color: "black"}} onClick={() =>{navigate("/login")}}
+      ><FiLogIn color="black"/> Login</div>
       }
     </div>
   )

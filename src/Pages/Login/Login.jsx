@@ -44,10 +44,10 @@ const Login = () => {
       const {email, password}= data;
       const res = await axios.post(LOGIN_URL, { email, password});
 
-      // console.log(res.data.data);
+      // console.log(res.data.data._id);
       // console.log(email, password)
 
-      localStorage.setItem("SOTWUser", JSON.stringify({name: res.data.data.name, stack: res.data.data.stack}));
+      localStorage.setItem("SOTWUser", JSON.stringify({name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role}));
       dispatch(addId(res.data.data));
       // console.log(res.data.data.name, res.data.data.stack);
       setSaveUser({name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role});

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import "./Side.css"
 import image from "../../images/avatar.jpg"
 import {useNavigate, NavLink } from "react-router-dom"
@@ -11,11 +11,15 @@ import {useSelector, useDispatch} from "react-redux";
 import { signOut } from "../../Contexts/IdReducer";
 import Swal from 'sweetalert2';
 import { AiOutlineClose } from 'react-icons/ai';
+import {FiLogIn} from "react-icons/fi"
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Side = ({toggle}) => {
     const dispatch = useDispatch();
+    const {saveUser, logOutFunc} = useContext(AuthContext);
   const navigate = useNavigate();
   const profile = useSelector((state) => state.Id.Id);
+  const [user, setUser] = React.useState(JSON.parse((localStorage.getItem("SOTWUser"))))
 
   const Toast = Swal.mixin({
     toast: true,
@@ -28,6 +32,7 @@ const Side = ({toggle}) => {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
+  
   return (
     <div className="main-sidebar1" onClick={toggle}>
       <div className="top1">
@@ -57,17 +62,19 @@ const Side = ({toggle}) => {
         <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>
         {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
       </div>
-      <div className="Log-out1"
-      onClick={() => {
-				dispatch(signOut());
-                localStorage.setItem("SOTWUser", JSON.stringify({}))
+      {
+        user.role !== undefined ? <div className="Log-out" onClick={() => {
+								logOutFunc()
+                localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
                 Toast.fire({
                     icon: 'success',
                     title: 'Logged out successfully'
                 })
                 navigate("/login")
-            }}
-      ><MdOutlineLogout/> Logout</div>
+							}}
+      ><MdOutlineLogout/> Logout</div>: <div className="Log-out" style={{color: "black"}} onClick={() =>{navigate("/login")}}
+      ><FiLogIn color="black"/> Login</div>
+      }
     </div>
   )
 }
