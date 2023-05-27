@@ -17,6 +17,10 @@ export const AuthProvider = ({ children })=>{
         setOnsignOut(!onSignOut)
     }
     useEffect(()=>{
+        if(saveUser === null){
+            localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
+            setSaveUser(JSON.parse(localStorage.getItem("SOTWUser")))
+        }
         setSaveUser(JSON.parse(localStorage.getItem("SOTWUser")))
     }, [])
     useEffect(()=>{
