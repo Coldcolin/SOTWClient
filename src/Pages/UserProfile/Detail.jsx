@@ -63,7 +63,7 @@ const Detail = () => {
             confirmButtonText: 'Yes, delete it!'
           })
           if(Toast.isConfirmed){
-            await axios.delete(`https://sotw-app.onrender/rating/delete/${studentId}/${week}`)
+            await axios.delete(`https://sotw-app.onrender.com/rating/delete/${studentId}/${week}`)
             Swal.fire(
                     'Deleted!',
                     'Rating has been removed.',
