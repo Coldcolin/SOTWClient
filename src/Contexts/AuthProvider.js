@@ -12,22 +12,22 @@ export const AuthProvider = ({ children })=>{
     const toggleSide = ()=>{
         setShowSide(!showSide)
     }
-    const logOutFunc =()=>{
-        dispatch(signOut());
-        setOnsignOut(!onSignOut)
-    }
-    useEffect(()=>{
-        if(saveUser === null){
-            localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
-            setSaveUser(JSON.parse(localStorage.getItem("SOTWUser")))
-        }
-        setSaveUser(JSON.parse(localStorage.getItem("SOTWUser")))
-    }, [])
+    // const logOutFunc =()=>{
+    //     dispatch(signOut());
+    //     setOnsignOut(!onSignOut)
+    // }
+    // useEffect(()=>{
+    //     if(saveUser === null){
+    //         localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
+    //         setSaveUser(JSON.parse(localStorage.getItem("SOTWUser")))
+    //     }
+    //     setSaveUser(JSON.parse(localStorage.getItem("SOTWUser")))
+    // }, [])
     useEffect(()=>{
         setSaveUser(JSON.parse(localStorage.getItem("SOTWUser")))
     }, [onSignOut])
     return(
-        <AuthContext.Provider value={{saveUser, setSaveUser, showSide, toggleSide, logOutFunc}}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ showSide, toggleSide,}}>{children}</AuthContext.Provider>
     )
 }
 

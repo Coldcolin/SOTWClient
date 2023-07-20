@@ -3,11 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "../../api/axios"
 import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
+import { useSelector } from 'react-redux';
 
 const allStuds = "/users/allusers"
 
 const AllStudents = () => {
   const {saveUser} = useContext(AuthContext);
+  const Id = useSelector((e)=> e.Id.Id)
+
 
   const navigate = useNavigate();
   const [load, setLoad] = useState(false)
@@ -149,8 +152,8 @@ const AllStudents = () => {
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
                 {props.overallRating? <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
-                {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
-                {(saveUser?.role === "tutor" || saveUser?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
+                {Id?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
               </tr>
             ))}
             {backEnd?.map((props)=>(
@@ -159,8 +162,8 @@ const AllStudents = () => {
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
                 {props.overallRating? <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
-                {saveUser?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
-                {(saveUser?.role === "tutor" || saveUser?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
+                {Id?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
               </tr>
             ))}
             </tbody>

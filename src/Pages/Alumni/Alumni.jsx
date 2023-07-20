@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "../../api/axios"
 import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
+import { useSelector } from 'react-redux';
 const allStuds = "/users/allusers"
 
 const Alumni = () => {
     const {saveUser} = useContext(AuthContext);
+    const Id = useSelector((e)=> e.Id.Id)
   const navigate = useNavigate();
   const [load, setLoad] = useState(false);
   
@@ -104,7 +106,7 @@ const Alumni = () => {
                 <td>{props?.stack}</td>
                 <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td>
                 
-                {saveUser?.role === "admin" ? <td><button className="assessment-submit" onClick={()=> makeStudent(props._id)}>Make Student</button></td>: null}
+                {Id?.role === "admin" ? <td><button className="assessment-submit" onClick={()=> makeStudent(props._id)}>Make Student</button></td>: null}
               </tr>
             ))}
             </tbody>

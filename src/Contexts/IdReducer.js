@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    Id: "",
+    Id: {name:"", stack: "", role: "", image:""},
 }
 
 const IdReducer = createSlice({
@@ -12,7 +12,7 @@ const IdReducer = createSlice({
             state.Id = payload
         },
         signOut: (state) => {
-                state.Id = "";
+                state.Id = {name:"", stack: "", role: "", image: ""};
             },
     }
 });

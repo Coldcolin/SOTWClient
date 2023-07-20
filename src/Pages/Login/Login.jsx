@@ -11,11 +11,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 import { addId } from "../../Contexts/IdReducer";
 import { useDispatch } from "react-redux";
-import useAuth from "../../Hooks/useAuth.js"
 const LOGIN_URL = "/users/login"
 
 const Login = () => {
-  const {setSaveUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -44,13 +42,9 @@ const Login = () => {
       const {email, password}= data;
       const res = await axios.post(LOGIN_URL, { email, password});
 
-      // console.log(res.data.data._id);
       // console.log(email, password)
-
-      localStorage.setItem("SOTWUser", JSON.stringify({name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role}));
-      dispatch(addId(res.data.data));
+      dispatch(addId({name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role, image: res.data.data.image}));
       // console.log(res.data.data.name, res.data.data.stack);
-      setSaveUser({name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role});
       reset();
       Toast.fire({
         icon: 'success',
@@ -61,7 +55,7 @@ const Login = () => {
       if(error.response){
         Toast.fire({
           icon:'fail',
-          title: error.response.data.message
+          title: "Login Failed"
         })
         console.log(error.response.status);
         console.log(error.response.headers);

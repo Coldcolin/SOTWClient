@@ -12,7 +12,7 @@ import {FiLogIn} from "react-icons/fi"
 import {MdOutlineLogout} from "react-icons/md";
 import {useSelector, useDispatch} from "react-redux";
 // import useAuth from "../../Hooks/useAuth.js";
-import { signOut } from "../../Contexts/IdReducer";
+import { addId, signOut } from "../../Contexts/IdReducer";
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
@@ -52,7 +52,7 @@ const Sidebar = () => {
         <img src={logo} alt="logo" className="logo" />
         {
           profile ? (<div className="user-info">
-          {!profile? (<img className="profile-image" src={image} alt="img" />):(<img className="profile-image" src={profile.image} alt="img" />)}
+          {profile.image === ""? (<img className="profile-image" src={image} alt="img" />):(<img className="profile-image" src={profile.image} alt="img" />)}
           <div className="who">
             <p>{profile.name}</p>
             <span>{profile.stack}</span>
@@ -73,8 +73,9 @@ const Sidebar = () => {
         {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
       </div>
       {
-        user.role !== undefined ? <div className="Log-out" onClick={() => {
+        profile.role !== "" ? <div className="Log-out" onClick={() => {
 								logOutFunc()
+                dispatch(signOut());
                 localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
                 Toast.fire({
                     icon: 'success',
