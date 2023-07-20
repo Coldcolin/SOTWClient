@@ -115,12 +115,12 @@ const Detail = () => {
         <table style={{width: "100%"}}>
           <thead>
           <tr className="user-table-head">
-            <th>WEEK </th>
-            <th>PUNCTUALITY</th>
-            <th>ASSIGNMENTS</th>
-            <th>CLASS PARTICIPATION</th>
-            <th>CLASS ASSESSMENT</th>
-            <th>PERSONAL DEFENCE</th>
+            <th>WK </th>
+            <th>PTY</th>
+            <th>ASS</th>
+            <th>CLASS P</th>
+            <th>CLASS A</th>
+            <th>P D</th>
             <th>AV. TOTAL 100%</th>
             <th></th>
           </tr>
@@ -145,6 +145,18 @@ const Detail = () => {
         </table>
       </article>: null
       }
+      </div>
+      <div style={{marginTop: "30px", padding:"20px"}}>
+      <h4>Key</h4>
+        <p>
+        WK: Week,
+        PTY: Punctuality,
+        ASS: Assignments,
+        CLASS: Class Participation,
+        CLASS A: Class Assessment,
+        P D: Personal Development,
+        AV. TOTAL: Average Total
+        </p>
       </div>
     </main>
   )

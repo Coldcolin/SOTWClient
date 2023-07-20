@@ -42,7 +42,7 @@ const Side = ({toggle}) => {
         </div>
         {
           profile ? (<div className="user-info1">
-          {!profile? (<img className="profile-image1" src={image} alt="img" />):(<img className="profile-image1" src={profile.image} alt="img" />)}
+          {profile.image === ""? (<img className="profile-image" src={image} alt="img" />):(<img className="profile-image" src={profile.image} alt="img" />)}
           <div className="who1">
             <p>{profile.name}</p>
             <span>{profile.stack}</span>
@@ -63,9 +63,10 @@ const Side = ({toggle}) => {
         {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
       </div>
       {
-        user.role !== undefined ? <div className="Log-out" onClick={() => {
-								logOutFunc()
-                localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
+        profile.role !== "" ? <div className="Log-out" onClick={() => {
+								localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
+                logOutFunc()
+                dispatch(signOut());
                 Toast.fire({
                     icon: 'success',
                     title: 'Logged out successfully'
