@@ -43,7 +43,7 @@ const Login = () => {
       const res = await axios.post(LOGIN_URL, { email, password});
 
       // console.log(email, password)
-      dispatch(addId({name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role, image: res.data.data.image}));
+      dispatch(addId({id: res.data.data._id, name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role, image: res.data.data.image}));
       // console.log(res.data.data.name, res.data.data.stack);
       reset();
       Toast.fire({

@@ -73,10 +73,8 @@ const Sidebar = () => {
         {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
       </div>
       {
-        profile.role !== "" ? <div className="Log-out" onClick={() => {
-								logOutFunc()
+        profile.id !== "" ? <div className="Log-out" onClick={() => {
                 dispatch(signOut());
-                localStorage.setItem("SOTWUser", JSON.stringify({name: "visitor"}))
                 Toast.fire({
                     icon: 'success',
                     title: 'Logged out successfully'

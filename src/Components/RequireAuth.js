@@ -9,7 +9,7 @@ const RequireAuth = () =>{
     
 
     return (
-        Id?.Id?.name !== ""? <Outlet />: <Navigate to="/login" state={{ from : location }} replace />
+        Id?.Id?.id !== ""? <Outlet />: <Navigate to="/login" state={{ from : location }} replace />
     )
 };
 
