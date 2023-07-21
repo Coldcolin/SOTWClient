@@ -192,6 +192,7 @@ h2 {
     box-shadow: 0px 0px 0px 1px rgba(152, 161, 179, 0.1), 0px 15px 35px -5px rgba(17, 24, 38, 0.15), 0px 5px 15px rgba(0, 0, 0, 0.08);
     border-radius: 6px;
     overflow-y: scroll;
+    
 }
 ::-webkit-scrollbar{
     background-color: White;
@@ -210,6 +211,7 @@ h2 {
     position: sticky;
     top: 0;
     background-color: white;
+    margin-top: 10px;
 }
 
 table{

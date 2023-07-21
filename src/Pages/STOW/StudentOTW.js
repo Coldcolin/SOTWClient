@@ -193,7 +193,7 @@ const getUsers =async()=>{
           <div className="sotw-history">
             <p>Student of the week History Front-End</p>
             <table style={{width: "100%"}}>
-              <thead>
+              <thead >
               <tr>
                 <th>WEEK</th>
                 <th>NAME</th>

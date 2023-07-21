@@ -4,12 +4,14 @@ import {useParams} from "react-router-dom"
 import axios from "axios";
 import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
+import { useSelector } from 'react-redux';
 
 const Detail = () => {
   const {saveUser} = useContext(AuthContext);
     const {id} = useParams();
     const [user, setUser] = useState();
     const [ratings, setRatings] = useState();
+    const profile = useSelector((state) => state.Id.Id);
 
     const getUser =async()=>{
         try{
@@ -137,7 +139,7 @@ const Detail = () => {
             <td>{props.personalDefense}</td>
             {/* <td>{(Math.round(props.total * 10))/10}</td> */}
             <td>{(Math.round(((props?.total /20) * 100)* 10))/10}%</td>
-            {(saveUser?.role === "tutor" || saveUser?.role === "admin")? <td><button className="assessment-submit" onClick={()=> deleteRating(props.week)}>Delete</button></td>: null}
+            {(profile?.role === "tutor" || profile?.role === "admin")? <td><button className="assessment-submit" onClick={()=> deleteRating(props.week)}>Delete</button></td>: null}
           </tr>
             ))
           }
