@@ -123,8 +123,8 @@ const AllStudents = () => {
   return (
     <div className="all-body">
       <div className="all-head">
-        <div className="all-filter">All</div>
-        <div className="all-search">Search</div>
+        {/* <div className="all-filter">All</div>
+        <div className="all-search">Search</div> */}
       </div>
       <div className="all-user-info">
         {

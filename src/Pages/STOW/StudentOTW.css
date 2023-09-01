@@ -249,8 +249,9 @@ td{
         height: 96px;
     }
     .sotw-history {
-        width: 90%;
+        width: 100%;
         margin-block: 50px;
+        padding-inline-start: 20px;
     }
 }
 
