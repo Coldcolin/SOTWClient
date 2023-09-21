@@ -70,9 +70,7 @@ const Sidebar = () => {
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/"><TbLayoutDashboard/> <span>Dashboard</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="user"> <FiUser/> <span>User Profile</span></NavLink>
         {profile.role === "tutor"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
-        {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
-      </div>
-      {
+        {
         profile.id !== "" ? <div className="Log-out" onClick={() => {
                 dispatch(signOut());
                 Toast.fire({
@@ -84,6 +82,9 @@ const Sidebar = () => {
       ><MdOutlineLogout/> Logout</div>: <div className="Log-out" style={{color: "black"}} onClick={() =>{navigate("/login")}}
       ><FiLogIn color="black"/> Login</div>
       }
+        {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
+      </div>
+      
     </div>
   )
 }

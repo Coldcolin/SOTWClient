@@ -114,13 +114,21 @@
 }
 .Log-out{
     color: red;
-    padding-left: 20px;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin-top: 80px;
     cursor: pointer;
 }
 .Log-in{
     color: #023047;
-    padding-left: 70px;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin-top: 80px;
     cursor: pointer;
     text-decoration: none;
