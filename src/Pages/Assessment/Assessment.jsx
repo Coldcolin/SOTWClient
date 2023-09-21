@@ -33,7 +33,7 @@ const Assessment = () => {
     try{
       const Toaster = await Swal.fire({
         title: 'Add Assessment?',
-        text: `${JSON.stringify({Assignments: Assignments, personalDefense: personalDefense, classParticipation: classParticipation, punctuality: punctuality, classAssessment: classAssessment, week: week})}`,
+        text: `${JSON.stringify({Assignments: Assignments , personalDefense: personalDefense , classParticipation: classParticipation , punctuality: punctuality , classAssessment: classAssessment})} for week: ${week}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#FFB703',
@@ -65,20 +65,27 @@ const Assessment = () => {
 
   const addSOTWFE = async (id)=>{
     try{
-      const Toaster = await Swal.fire({
-        title: 'Please Confirm',
-        text: `Make Him/Her student of the week ${week} for Front end`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#FFB703',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes!'
-      })
-      if(Toaster.isConfirmed){
-        await axios.post(`https://sotw-app.onrender.com/SOW/create/${id}`,{week: week});
+      if(week !== 0){
+        const Toaster = await Swal.fire({
+          title: 'Please Confirm',
+          text: `Choose Front End SOTW for week: ${week}`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#FFB703',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
+        })
+        if(Toaster.isConfirmed){
+          await axios.post(`https://sotw-app.onrender.com/algo/sotwfront/`,{week: week});
+          Toast.fire({
+            icon: 'success',
+            title: 'Student Added'
+          })
+        }
+      }else{
         Toast.fire({
-          icon: 'success',
-          title: 'Student Added'
+          icon: 'error',
+          title: 'Add week'
         })
       }
     }catch(error){
@@ -97,9 +104,10 @@ const Assessment = () => {
   }
   const addSOTWBE = async (id)=>{
     try{
+     if(week !== 0){
       const Toaster = await Swal.fire({
         title: 'Please Confirm',
-        text: `Make Him/Her student of the week ${week} for Back end`,
+        text: `Choose Back End SOTW for week: ${week}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#FFB703',
@@ -107,12 +115,18 @@ const Assessment = () => {
         confirmButtonText: 'Yes!'
       })
       if(Toaster.isConfirmed){
-        await axios.post(`https://sotw-app.onrender.com/BSOW/create/${id}`,{week: week});
+        await axios.post(`https://sotw-app.onrender.com/algo/sotwback/`,{week: week});
         Toast.fire({
           icon: 'success',
           title: 'Student Added'
         })
       }
+     }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'Add week'
+      })
+     }
     }catch(error){
       if (error.response) {
         console.log(error.response.data);
@@ -161,8 +175,6 @@ const Assessment = () => {
     <div className="assessment-content">
     {loading? <div><h1>Loading Students...</h1></div>:<div className="assessment-title">Student Assessment</div>}
       <div className="assessment-top">
-        {/* <div className="assessment-filter">All</div>
-        <div className="assessment-search">Search</div> */}
       </div>
       <div className="a-table">
       {/* <form > */}
@@ -178,9 +190,8 @@ const Assessment = () => {
             <th className="assessment-table-title">PERSONAL DEFENSE</th>
             <th className="assessment-table-title"> WEEK</th>
             <th className="assessment-table-title"></th>
-            <th className="assessment-table-title">{
-              !show ? <button className="assessment-submit SOTWBE" type="submit" onClick={()=> setShow(!show)}>Choose SOTW</button>: <button className="assessment-submit SOTWBE" type="submit" onClick={()=> setShow(!show)}>hide Buttons</button>
-            }</th>
+            {/* <th className="assessment-table-title">
+            </th> */}
           </tr>
           </thead>
             {/* <form> */}
@@ -197,11 +208,10 @@ const Assessment = () => {
                 <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={e => setPersonalDefense(e.target.value)}/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
                 <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
-                {
-                  !show ? <td></td>:props.stack === "Back End"? <td><button className="assessment-submit SOTWFE" type="submit" onClick={(e)=> addSOTWBE(props._id)}>make SOTW BE</button></td>: <td><button className="assessment-submit SOTWBE" type="submit" onClick={(e)=> addSOTWFE(props._id)}>make SOTW FE</button></td>
-                }
               </tr>
+              
             ))}
+            
             {/* <h6>Back End Students</h6> */}
             {backEnd.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
@@ -214,14 +224,25 @@ const Assessment = () => {
                 <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={e => setPersonalDefense(e.target.value)}/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
                 <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
-                {
-                  !show ? <td></td>:props.stack === "Back End"? <td><button className="assessment-submit SOTWFE" type="submit" onClick={(e)=> addSOTWBE(props._id)}>make SOTW BE</button></td>: <td><button className="assessment-submit SOTWBE" type="submit" onClick={(e)=> addSOTWFE(props._id)}>make SOTW FE</button></td>
-                }
               </tr>
-            ))}
+            ))
+              
+            }
+              
             </tbody>
         </table>
       {/* </form> */}
+        </div>
+        <div>
+        <div style={{marginTop: 20, marginBottom: 20, paddingLeft: 20}}>
+            <button className="assessment-submit SOTWFE" type="submit" onClick={()=> addSOTWBE()}>Choose SOTW BE</button>
+            <input className="assessment-input" placeholder="week" onChange={e => setWeek(e.target.value)}/>
+        </div>
+          <div style={{marginTop: 20, marginBottom: 20, paddingLeft: 20}}>
+            
+          <button className="assessment-submit SOTWBE" type="submit" onClick={()=> addSOTWFE()}>Choose SOTW FE</button>
+            <input className="assessment-input" placeholder="week" onChange={e => setWeek(e.target.value)}/>
+          </div>
         </div>
     </div>
   )

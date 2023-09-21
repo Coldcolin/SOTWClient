@@ -116,14 +116,14 @@ const Registration = () => {
               <option>-- Select Stack --</option>
               <option>Front End</option>
               <option>Back End</option>
-              <option>Tutor</option>
+              {/* <option>Tutor</option> */}
             </select>
           <label style={{color: "red", fontSize: "11px"}}>{errors.stack && <p>Please enter the Stack.</p>}</label>
           <select className="reg-input" {...register("role")}>
               <option>-- Select Role --</option>
               <option>student</option>
-              <option>admin</option>
-              <option>tutor</option>
+              {/* <option>admin</option> */}
+              {/* <option>tutor</option> */}
             </select>
           <label style={{color: "red", fontSize: "11px"}}>{errors.stack && <p>Please enter the Role.</p>}</label>
           <input className="reg-input" placeholder="Password" type="password" {...register("password")} />

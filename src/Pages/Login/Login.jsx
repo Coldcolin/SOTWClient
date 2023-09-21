@@ -54,7 +54,7 @@ const Login = () => {
     }catch(error){
       if(error.response){
         Toast.fire({
-          icon:'fail',
+          icon:'error',
           title: "Login Failed"
         })
         console.log(error.response.status);
