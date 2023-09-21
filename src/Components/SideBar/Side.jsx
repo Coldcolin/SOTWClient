@@ -59,11 +59,11 @@ const Side = ({toggle}) => {
       <div className="navs1">
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/"><TbLayoutDashboard/> <span>Dashboard</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="user"> <FiUser/> <span>User Profile</span></NavLink>
-        <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>
+        {profile.role === "tutor"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
         {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}
       </div>
       {
-        profile.id !== "" ? <div className="Log-out" onClick={() => {
+        profile.id !== "" ? <div className="Log-out1" onClick={() => {
                 dispatch(signOut());
                 Toast.fire({
                     icon: 'success',
@@ -71,7 +71,7 @@ const Side = ({toggle}) => {
                 })
                 navigate("/login")
 							}}
-      ><MdOutlineLogout/> Logout</div>: <div className="Log-out" style={{color: "black"}} onClick={() =>{navigate("/login")}}
+      ><MdOutlineLogout/> Logout</div>: <div className="Log-out1" style={{color: "black"}} onClick={() =>{navigate("/login")}}
       ><FiLogIn color="black"/> Login</div>
       }
     </div>

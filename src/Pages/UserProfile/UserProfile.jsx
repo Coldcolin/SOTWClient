@@ -37,8 +37,8 @@ const UserProfile = () => {
         <div className='user-info-div'>
           <img className='user-image' src={profile.image} alt="" />
           <div className="user-detail">
-            <p className="user-name">Name: {profile.name}</p>
-            <p className='user-talk'>Email: {profile.email}</p>
+            <p className="user-name">{profile.name}</p>
+            <p className='user-talk'>{profile.email}</p>
             {/* <p className='user-talk'>Phone: {profile.phone}</p> */}
             <p className='user-talk'>Role: {profile.role}</p>
           </div>

@@ -17,7 +17,7 @@ const Detail = () => {
         try{
           const res = await axios.get(`https://sotw-app.onrender.com/users/oneUser/${id}`)
           setUser(res.data.data);
-          // console.log(res.data.data.image)
+          // console.log(res.data.data)
         }catch(error){
           if (error.response) {
             console.log(error.response.data);
@@ -102,17 +102,17 @@ const Detail = () => {
         <div className='user-info-div'>
           <img className='user-image' src={user.image} alt="" />
           <div className="user-detail">
-            <p className="user-name">Name: {user.name}</p>
-            <p className='user-talk'>Email: {user.email}</p>
+            <p className="user-name"> {user.name}</p>
+            <p className='user-talk'> {user.email}</p>
             {
-              user.role === "student"? <p className='user-talk'>Stack: {user.stack}</p>: <p className='user-talk'>Role: {user.role}</p>
+              user.role === "student"? <p className='user-talk'>{user.stack}</p>: <p className='user-talk'>{user.role}</p>
             }
           </div>
         </div>
       </article>: null
       }
       {
-        user && user.stack === "Tutor"? null: ratings? <article className='user-assessment'>
+        user && user?.stack === "Tutor"? null: ratings? <article className='user-assessment'>
         <p>Your Assessment History</p>
         <table style={{width: "100%"}}>
           <thead>
@@ -148,7 +148,8 @@ const Detail = () => {
       </article>: null
       }
       </div>
-      <div style={{marginTop: "30px", padding:"20px"}}>
+     {
+      (user?.role === "student") || (user?.role === "alumni")?  <div style={{marginTop: "30px", padding:"20px"}}>
       <h4>Key</h4>
         <p>
         WK: Week,
@@ -156,10 +157,11 @@ const Detail = () => {
         ASS: Assignments,
         CLASS: Class Participation,
         CLASS A: Class Assessment,
-        P D: Personal Development,
+        P D: Personal Defense,
         AV. TOTAL: Average Total
         </p>
-      </div>
+      </div>: null
+     }
     </main>
   )
 }
