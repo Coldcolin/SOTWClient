@@ -76,6 +76,31 @@
     background-color: #c28d07;
     font-size: 12px;
 }
+
+.searchInput{
+    width:300px;
+    height:25px;
+    border-radius:25px;
+    border: none;
+    margin: 10px;
+}
+.searchButton{
+    width: 60px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #023047;
+    color: white;
+    border-radius: 3px; 
+    border: none;
+    cursor: pointer;
+    font-weight: 300;
+    transform: scale(1);
+    transition: all 450ms;
+    margin: 10px;
+    margin-top: 0px;
+}
 @media screen and (max-width: 600px){
     .assessment-submit {
         width: 50px;

@@ -13,8 +13,13 @@ const Assessment = () => {
   const [week, setWeek] = useState(0);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [backUpfrontEnd, setBackUpFrontEnd] = useState([]);
+  const [backUpbackEnd, setBackUpBackEnd] = useState([]);
   const [frontEnd, setFrontEnd] = useState([]);
   const [backEnd, setBackEnd] = useState([]);
+  const [front, setFront] = useState("")
+  const [back, setBack] = useState("")
+  
 
 
   const Toast = Swal.mixin({
@@ -153,7 +158,9 @@ const Assessment = () => {
       const back = filteredUsers.filter(i => i.stack === "Back End");
       const front = filteredUsers.filter(i => i.stack === "Front End");
       setFrontEnd(front);
+      setBackUpFrontEnd(front);
       setBackEnd(back);
+      setBackUpBackEnd(back);
       setLoading(false)
     }catch(error){
       if (error.response) {
@@ -168,17 +175,79 @@ const Assessment = () => {
       console.log(error.config);
     }
   }
+  const frontEndSearch=()=>{
+    const searchedArray = frontEnd.filter((i)=> {
+      const name = i.name.toLowerCase()
+      const value = front.toLowerCase()
+      return name.includes(value)
+    } )
+    setFrontEnd(searchedArray)
+  }
+  const backEndSearch=()=>{
+    const searchedArray = backEnd.filter((i)=> {
+      const name = i.name.toLowerCase()
+      const value = back.toLowerCase()
+      return name.includes(value)
+    } )
+    setBackEnd(searchedArray)
+  }
+  // function handleSearchClick() {
+  //       if (searchVal === "") { setProducts(productList); return; }
+  //       const filterBySearch = productList.filter((item) => {
+  //           if (item.toLowerCase()
+  //               .includes(searchVal.toLowerCase())) { return item; }
+  //       })
+  //       setProducts(filterBySearch);
+  //   }
   useEffect(()=>{
     getUsers()
   }, [])
   return (
     <div className="assessment-content">
-    {loading? <div><h1>Loading Students...</h1></div>:<div className="assessment-title">Student Assessment</div>}
+    {loading? <div><h1>Loading Frontend Students...</h1></div>:<div><input placeholder="Search Frontend" type="search" className="searchInput" value={front} onChange={(e)=> setFront(e.target.value)} /> {front !== ""?<button onClick={frontEndSearch} className="searchButton">Search</button>:<button onClick={()=> setFrontEnd(backUpfrontEnd)} className="searchButton">Search</button>}</div>}
       <div className="assessment-top">
       </div>
       <div className="a-table">
       {/* <form > */}
+      <h6>Front End Students</h6>
       <table className="assessment-table-holder">
+          <thead>
+          <tr className="assessment-table">
+            <th className="assessment-table-title">IMAGE</th>
+            <th className="assessment-table-title">FULL NAME</th>
+            <th className="assessment-table-title">PUNCTUALITY</th>
+            <th className="assessment-table-title">ASSIGNMENTS</th>
+            <th className="assessment-table-title">CLASS ASSESSMENT</th>
+            <th className="assessment-table-title">CLASS PARTICIPATION</th>
+            <th className="assessment-table-title">PERSONAL DEFENSE</th>
+            <th className="assessment-table-title"> WEEK</th>
+            <th className="assessment-table-title"></th>
+            {/* <th className="assessment-table-title">
+            </th> */}
+          </tr>
+          </thead>
+            {/* <form> */}
+            
+            <tbody>
+            {frontEnd.map((props)=>(
+              <tr className="assessment-user-info" key={props._id}>
+                <td><img src={props.image} alt="imae" className="assessment-image"/></td>
+                <td><div className="assessment-item">{props.name}</div></td>
+                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={e => setPunctuality(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={e => setAssignments(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={e => setClassAssessment(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={e => setClassParticipation(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={e => setPersonalDefense(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
+                <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
+              </tr>
+              
+            ))}
+            </tbody>
+        </table>
+        <h6>Back End Students</h6>
+        {loading? <div><h1>Loading Backend Students...</h1></div>:<div><input placeholder="Search backend" type="search" className="searchInput" value={back} onChange={(e)=> setBack(e.target.value)} /> {back !== ""?<button onClick={backEndSearch} className="searchButton">Search</button>:<button onClick={()=> setBackEnd(backUpbackEnd)} className="searchButton">Search</button>}</div>}
+        <table className="assessment-table-holder">
           <thead>
           <tr className="assessment-table">
             <th className="assessment-table-title">IMAGE</th>
@@ -197,22 +266,6 @@ const Assessment = () => {
             {/* <form> */}
             {/* <h6>Front End Students</h6> */}
             <tbody>
-            {frontEnd.map((props)=>(
-              <tr className="assessment-user-info" key={props._id}>
-                <td><img src={props.image} alt="imae" className="assessment-image"/></td>
-                <td><div className="assessment-item">{props.name}</div></td>
-                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={e => setPunctuality(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={e => setAssignments(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={e => setClassAssessment(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={e => setClassParticipation(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={e => setPersonalDefense(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
-              </tr>
-              
-            ))}
-            
-            {/* <h6>Back End Students</h6> */}
             {backEnd.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
                 <td><img src={props.image} alt="imae" className="assessment-image"/></td>
@@ -228,9 +281,8 @@ const Assessment = () => {
             ))
               
             }
-              
             </tbody>
-        </table>
+          </table>
       {/* </form> */}
         </div>
         <div>
