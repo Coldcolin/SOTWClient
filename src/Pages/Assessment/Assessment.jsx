@@ -191,20 +191,18 @@ const Assessment = () => {
     } )
     setBackEnd(searchedArray)
   }
-  // function handleSearchClick() {
-  //       if (searchVal === "") { setProducts(productList); return; }
-  //       const filterBySearch = productList.filter((item) => {
-  //           if (item.toLowerCase()
-  //               .includes(searchVal.toLowerCase())) { return item; }
-  //       })
-  //       setProducts(filterBySearch);
-  //   }
+  useEffect(()=>{
+    frontEndSearch()
+  },[front])
+  useEffect(()=>{
+    backEndSearch()
+  },[back])
   useEffect(()=>{
     getUsers()
   }, [])
   return (
     <div className="assessment-content">
-    {loading? <div><h1>Loading Frontend Students...</h1></div>:<div><input placeholder="Search Frontend" type="search" className="searchInput" value={front} onChange={(e)=> setFront(e.target.value)} /> {front !== ""?<button onClick={frontEndSearch} className="searchButton">Search</button>:<button onClick={()=> setFrontEnd(backUpfrontEnd)} className="searchButton">Search</button>}</div>}
+    {loading? <div><h1>Loading Frontend Students...</h1></div>:<div><input placeholder="Search Frontend" type="search" className="searchInput" value={front} onChange={(e)=> setFront(e.target.value)} /> <button onClick={()=> setFrontEnd(backUpfrontEnd)} className="searchButton">Reset</button></div>}
       <div className="assessment-top">
       </div>
       <div className="a-table">
@@ -246,7 +244,7 @@ const Assessment = () => {
             </tbody>
         </table>
         <h6>Back End Students</h6>
-        {loading? <div><h1>Loading Backend Students...</h1></div>:<div><input placeholder="Search backend" type="search" className="searchInput" value={back} onChange={(e)=> setBack(e.target.value)} /> {back !== ""?<button onClick={backEndSearch} className="searchButton">Search</button>:<button onClick={()=> setBackEnd(backUpbackEnd)} className="searchButton">Search</button>}</div>}
+        {loading? <div><h1>Loading Backend Students...</h1></div>:<div><input placeholder="Search backend" type="search" className="searchInput" value={back} onChange={(e)=> setBack(e.target.value)} /> <button onClick={()=> setBackEnd(backUpbackEnd)} className="searchButton">Reset</button></div>}
         <table className="assessment-table-holder">
           <thead>
           <tr className="assessment-table">

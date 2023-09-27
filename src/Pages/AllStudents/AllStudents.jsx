@@ -16,9 +16,10 @@ const AllStudents = () => {
   const [load, setLoad] = useState(false)
   
   
-  // const [users, setUsers] = useState([]);
-  const [frontEnd, setFrontEnd] = useState([]);
-  const [backEnd, setBackend] = useState([]);
+  const [user, setUser] = useState("");
+  const [allStudents, setAllStudents] = useState([]);
+  const [backUpStudents, setBackUpStudents] = useState([]);
+
   const getUsers =async()=>{
     try{
       setLoad(true)
@@ -27,11 +28,12 @@ const AllStudents = () => {
       const filteredUsers = await user.filter((e)=> e.role === "student");
       // setUsers(filteredUsers)
       
-      const back = filteredUsers.filter(i => i.stack === "Back End");
-      const front = filteredUsers.filter(i => i.stack === "Front End");
-      setFrontEnd(front);
-      setBackend(back);
+      // const back = filteredUsers.filter(i => i.stack === "Back End");
+      // const front = filteredUsers.filter(i => i.stack === "Front End");
       // console.log(backEnd)
+      setAllStudents(filteredUsers)
+      setBackUpStudents(filteredUsers)
+      // console.log(allStudents)
       setLoad(false);
       
     }catch(error){
@@ -117,19 +119,32 @@ const AllStudents = () => {
       console.log(error.config);
     }
   }
+
+  const studentSearch=()=>{
+    const searchedArray = allStudents.filter((i)=> {
+      const name = i.name.toLowerCase()
+      const value = user.toLowerCase()
+      return name.includes(value)
+    } )
+    setAllStudents(searchedArray)
+  }
+  useEffect(()=>{
+    studentSearch()
+  },[user])
+ 
   useEffect(()=>{
     getUsers()
+    
   }, [])
   return (
     <div className="all-body">
       <div className="all-head">
-        {/* <div className="all-filter">All</div>
-        <div className="all-search">Search</div> */}
+      {load? <div><h1>Loading Students...</h1></div>:<div><input placeholder="Search Students" type="search" className="searchInput" value={user} onChange={(e)=> setUser(e.target.value)}/> <button  className="searchButton" onClick={()=> setAllStudents(backUpStudents)}>Reset</button></div>}
       </div>
       <div className="all-user-info">
         {
           load? <div>
-            <h2>Loading...</h2>
+            <h2>...</h2>
           </div>:
           <table className="assessment-table-holder">
           
@@ -146,17 +161,7 @@ const AllStudents = () => {
             <tbody>
             
               {/* <form> */}
-              {frontEnd?.map((props)=>(
-              <tr className="assessment-user-info" key={props?._id}>
-                <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
-                <td>{props?.stack}</td>
-                {props.overallRating? <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
-                {Id?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
-                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
-              </tr>
-            ))}
-            {backEnd?.map((props)=>(
+              {allStudents?.map((props)=>(
               <tr className="assessment-user-info" key={props?._id}>
                 <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
