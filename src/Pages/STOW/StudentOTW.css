@@ -182,8 +182,9 @@ h2 {
     background-color: rgba(0, 0, 0, 0.3);
 }
 .sotw-history{
-    /* width: 427px; */
-    width: 568px;
+    min-width: 300px;
+    /* width: 568px; */
+    flex: 1;
     min-height: 300px;
     display:flex;
     flex-direction: column;
@@ -255,26 +256,29 @@ td{
     }
 }
 
-@media Screen and (width > 768px){
+@media screen and (width > 768px){
     .sotw-sotw{
         flex: 1;
     }
 }
 
-@media Screen and (width < 768px){
+@media screen and (width < 768px){
     .sotw-sotw{
         width: 90%;
     }
 }
 
-@media Screen and (max-width: 768px){
+@media screen and (max-width: 768px){
     .sotw-history {
         margin-top: 50px;
     }
 }
 
-@media Screen and (max-width:1024px){
+@media screen and (max-width:1024px){
     .sotw-history {
         margin-top: 50px;
     }
+}
+@media screen {
+    
 }

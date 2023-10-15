@@ -167,8 +167,8 @@ const AllStudents = () => {
                 <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
                 <td>{props?.stack}</td>
                 {props.overallRating? <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
-                {Id?.role === "admin"? <td><button className="assessment-submit" onClick={()=> deleteUser(props._id)}>delete</button></td>: null}
-                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="assessment-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
+                {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(props._id)}>Delete</button></td>: null}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(props._id)}>Make Alumni</button></td>: null}
               </tr>
             ))}
             </tbody>

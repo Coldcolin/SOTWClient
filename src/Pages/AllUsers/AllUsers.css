@@ -22,6 +22,52 @@
     display: flex;
     justify-content: space-around;
 }
+.all-submit {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFB703;
+    color: white;
+    border-radius: 3px; 
+    border: none;
+    cursor: pointer;
+    font-weight: 300;
+    transform: scale(1);
+    transition: all 450ms;
+    padding-block: 5px;
+}
+
+.all-submit:hover{
+    background-color: #023047;
+    transform: scale(1.05);
+    padding-block: 3px;
+    transition: all 350ms;
+    font-weight: 600;
+}
+.all-delete {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff0303;
+    color: white;
+    border-radius: 3px; 
+    border: none;
+    cursor: pointer;
+    font-weight: 300;
+    transform: scale(1);
+    transition: all 450ms;
+    padding-block: 5px;
+}
+
+.all-delete:hover{
+    background-color: #023047;
+    transform: scale(1.05);
+    padding-block: 3px;
+    transition: all 350ms;
+    font-weight: 600;
+}
 
 @media Screen and (width <= 736px){
     .all-body{
