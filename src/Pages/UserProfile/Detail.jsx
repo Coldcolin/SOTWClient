@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import "./UserProfile.css";
-import {useParams} from "react-router-dom"
+import {useParams, useNavigate} from "react-router-dom"
 import axios from "axios";
 import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
 
 const Detail = () => {
-  const {saveUser} = useContext(AuthContext);
+  // const {saveUser} = useContext(AuthContext);
+    const navigate = useNavigate();
     const {id} = useParams();
     const [user, setUser] = useState();
     const [ratings, setRatings] = useState();
@@ -96,6 +97,7 @@ const Detail = () => {
   return (
     <main className="user-main">
     <div className="text">User Profile</div>
+    <button className="assessment-submit" style={{margin: 20, paddingBlock: 5}} onClick={()=> navigate(-1)}>Back</button>
       <div className="user-holder">
       {
         user? <article className="user-info">
@@ -111,6 +113,7 @@ const Detail = () => {
         </div>
       </article>: null
       }
+      
       {
         user && user?.stack === "Tutor"? null: ratings? <article className='user-assessment'>
         <p>Your Assessment History</p>

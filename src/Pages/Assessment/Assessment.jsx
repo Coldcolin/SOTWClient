@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./Assessment.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Link } from 'react-router-dom';
 
 const Assessment = () => {
   const [users, setUsers] = useState([]);
@@ -229,7 +230,7 @@ const Assessment = () => {
             <tbody>
             {frontEnd.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
-                <td><img src={props.image} alt="imae" className="assessment-image"/></td>
+                <td><Link to={`/detail/${props._id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div className="assessment-item">{props.name}</div></td>
                 <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={e => setPunctuality(e.target.value)}/></td>
                 <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={e => setAssignments(e.target.value)}/></td>
@@ -266,7 +267,7 @@ const Assessment = () => {
             <tbody>
             {backEnd.map((props)=>(
               <tr className="assessment-user-info" key={props._id}>
-                <td><img src={props.image} alt="imae" className="assessment-image"/></td>
+                <td><Link to={`/detail/${props._id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div className="assessment-item">{props.name}</div></td>
                 <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={e => setPunctuality(e.target.value)}/></td>
                 <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={e => setAssignments(e.target.value)}/></td>
