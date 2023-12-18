@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import image from "../../images/logo.jpeg"
 import sideImage from "../../images/forLogin.jpg"
 // import axios from "axios"
 import axios from "../../api/axios"
 import "./Login.css"
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,6 +16,7 @@ const LOGIN_URL = "/users/login"
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false)
   const from = location.state?.from?.pathname || "/";
   const dispatch = useDispatch();
 
@@ -38,6 +39,7 @@ const Login = () => {
   })
 
   const logIn = handleSubmit( async (data) =>{
+    setLoading(true)
     try{
       const {email, password}= data;
       const res = await axios.post(LOGIN_URL, { email, password});
@@ -52,6 +54,7 @@ const Login = () => {
       })
       navigate(from, {replace: true})
     }catch(error){
+      setLoading(false)
       if(error.response){
         Toast.fire({
           icon:'error',
@@ -88,7 +91,8 @@ const Login = () => {
           <input className="login-input" placeholder="Email" {...register("email")}/>
           {/* <p>{errors && "some error"}</p> */}
           <input className="login-input" placeholder="Password" type="password" {...register("password")} />
-          <button className="login-signup-button" type="submit">Log In</button>
+          <button className="login-signup-button" type="submit">{loading === false?"Log In":"Logging in..."}</button>
+          <Link to="/forgot" style={{color: "black", textDecoration: "none", marginTop: 20}}>Forgot Password?</Link>
         </form>
         </div>
       </div>

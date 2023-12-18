@@ -6,6 +6,8 @@ import Dashboard from './Dashboard/Dashboard';
 import Registration from './Pages/Registration/Registration';
 import Login from "./Pages/Login/Login.jsx";
 import ScrollToTop from "./Components/ScrollTop"
+import ForgotPassword from './Pages/Recovery/ForgotPassword.jsx';
+import ResetPassword from './Pages/Recovery/ResetPassword.jsx';
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/*" element={<Dashboard />}/>
         <Route path="/Reg" element={<Registration/>} />
         <Route path="/Login" element={<Login/>} />
+        <Route path="/Forgot" element={<ForgotPassword/>} />
+        <Route path="/reset/:id" element={<ResetPassword/>} />
       </Routes>
       </ScrollToTop>
     </HashRouter>
