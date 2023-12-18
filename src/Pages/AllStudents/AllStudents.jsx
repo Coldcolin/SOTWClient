@@ -26,13 +26,15 @@ const AllStudents = () => {
       const res = await axios.get(allStuds)
       const user = res.data.data;
       const filteredUsers = await user.filter((e)=> e.role === "student");
+      
+      const sortedUsers = filteredUsers.sort((a, b)=> b.overallRating - a.overallRating)
       // setUsers(filteredUsers)
       
       // const back = filteredUsers.filter(i => i.stack === "Back End");
       // const front = filteredUsers.filter(i => i.stack === "Front End");
       // console.log(backEnd)
-      setAllStudents(filteredUsers)
-      setBackUpStudents(filteredUsers)
+      setAllStudents(sortedUsers)
+      setBackUpStudents(sortedUsers)
       // console.log(allStudents)
       setLoad(false);
       

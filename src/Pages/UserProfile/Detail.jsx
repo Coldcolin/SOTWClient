@@ -37,7 +37,8 @@ const Detail = () => {
         try{
           const res = await axios.get(`https://sotw-app.onrender.com/rating/get/${id}`)
           const rating = res.data.data;
-          setRatings(rating);
+          const sortedRatings = rating.sort((a, b)=> a.week - b.week)
+          setRatings(sortedRatings);
         }catch(error){
           if (error.response) {
             console.log(error.response.data);
