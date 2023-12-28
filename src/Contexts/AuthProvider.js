@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect} from "react"
-import {useSelector, useDispatch} from "react-redux";
-import { signOut } from "./IdReducer.js";
+// import { useDispatch} from "react-redux";
+// import { signOut } from "./IdReducer.js";
 
 export const AuthContext = createContext();
 
@@ -8,7 +8,7 @@ export const AuthProvider = ({ children })=>{
     const [saveUser, setSaveUser] = useState(null);
     const [showSide, setShowSide] = useState(false);
     const [onSignOut, setOnsignOut] = useState(false);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const toggleSide = ()=>{
         setShowSide(!showSide)
     }

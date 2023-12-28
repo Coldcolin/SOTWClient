@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "../../api/axios"
-import {AuthContext} from '../../Contexts/AuthProvider';
+// import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
 
 const allStuds = "/users/allusers"
 
 const AllStudents = () => {
-  const {saveUser} = useContext(AuthContext);
+  // const {saveUser} = useContext(AuthContext);
   const Id = useSelector((e)=> e.Id.Id)
 
 

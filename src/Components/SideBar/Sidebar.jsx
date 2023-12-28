@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import "./SideBar.css"
 // import { useStateContext } from '../../Contexts/ContextProvider.js';
 import image from "../../images/avatar.jpg"
-import {useNavigate, NavLink, Link } from "react-router-dom"
+import {useNavigate, NavLink} from "react-router-dom"
 import logo from "../../images/logo.jpeg"
 import { TbLayoutDashboard } from "react-icons/tb";
 import { FiUser } from "react-icons/fi"
@@ -12,18 +12,18 @@ import {FiLogIn} from "react-icons/fi"
 import {MdOutlineLogout} from "react-icons/md";
 import {useSelector, useDispatch} from "react-redux";
 // import useAuth from "../../Hooks/useAuth.js";
-import { addId, signOut } from "../../Contexts/IdReducer";
+import { signOut } from "../../Contexts/IdReducer";
 import Swal from 'sweetalert2';
-import { AuthContext } from '../../Contexts/AuthProvider';
+// import { AuthContext } from '../../Contexts/AuthProvider';
 
 
 
 const Sidebar = () => {
-  const {saveUser, logOutFunc} = useContext(AuthContext);
+  // const {saveUser, logOutFunc} = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const profile = useSelector((state) => state.Id.Id);
-  const [user, setUser] = React.useState(JSON.parse((localStorage.getItem("SOTWUser"))))
+  // const [user, setUser] = React.useState(JSON.parse((localStorage.getItem("SOTWUser"))))
 
   const Toast = Swal.mixin({
     toast: true,

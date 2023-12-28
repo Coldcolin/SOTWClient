@@ -12,7 +12,7 @@ const Assessment = () => {
   const [classParticipation, setClassParticipation] = useState(0);
   const [classAssessment, setClassAssessment] = useState(0);
   const [week, setWeek] = useState(0);
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [backUpfrontEnd, setBackUpFrontEnd] = useState([]);
   const [backUpbackEnd, setBackUpBackEnd] = useState([]);
@@ -232,11 +232,41 @@ const Assessment = () => {
               <tr className="assessment-user-info" key={props._id}>
                 <td><Link to={`/detail/${props._id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div className="assessment-item">{props.name}</div></td>
-                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={e => setPunctuality(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={e => setAssignments(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={e => setClassAssessment(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={e => setClassParticipation(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={e => setPersonalDefense(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setPunctuality("20");
+                } else {
+                  setPunctuality(value);
+                }}} min="0" max="20"/></td>
+                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setAssignments("20");
+                } else {
+                  setAssignments(value);
+                }}} min="0" max="20"/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setClassAssessment("20");
+                } else {
+                  setClassAssessment(value);
+                }}} min="0" max="20"/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setClassParticipation("20");
+                } else {
+                  setClassParticipation(value);
+                }}} min="0" max="20"/></td>
+                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setPersonalDefense("20");
+                } else {
+                  setPersonalDefense(value);
+                }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
                 <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
               </tr>
@@ -269,11 +299,41 @@ const Assessment = () => {
               <tr className="assessment-user-info" key={props._id}>
                 <td><Link to={`/detail/${props._id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div className="assessment-item">{props.name}</div></td>
-                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={e => setPunctuality(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={e => setAssignments(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={e => setClassAssessment(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={e => setClassParticipation(e.target.value)}/></td>
-                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={e => setPersonalDefense(e.target.value)}/></td>
+                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setPunctuality("20");
+                } else {
+                  setPunctuality(value);
+                }}} min="0" max="20"/></td>
+                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setAssignments("20");
+                } else {
+                  setAssignments(value);
+                }}} min="0" max="20"/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setClassAssessment("20");
+                } else {
+                  setClassAssessment(value);
+                }}} min="0" max="20"/></td>
+                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setClassParticipation("20");
+                } else {
+                  setClassParticipation(value);
+                }}} min="0" max="20"/></td>
+                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={(e) => {
+                const value = e.target.value;
+                if (parseInt(value, 10) > 20) {
+                  setPersonalDefense("20");
+                } else {
+                  setPersonalDefense(value);
+                }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
                 <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props._id)}>Submit</button></td>
               </tr>
